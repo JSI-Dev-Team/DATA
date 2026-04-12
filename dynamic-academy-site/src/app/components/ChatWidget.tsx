@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Loader2, X } from "lucide-react";
+import { ChatAssistantAvatar } from "./ChatAssistantAvatar";
 
 type ChatRole = "user" | "bot";
 
@@ -9,16 +10,36 @@ type ChatMessage = {
   text: string;
 };
 
-const CHAT_API_URL = "http://localhost:5001/chat";
+const CHAT_API_URL = "http://localhost:5003/chat";
+
+/**
+ * Reads the chat reply from JSON: fetch body `{ response }` or axios-style `{ data: { response } }`.
+ */
+function extractChatReplyFromJson(payload: unknown): string | null {
+  if (payload == null || typeof payload !== "object") return null;
+  const o = payload as Record<string, unknown>;
+  if (typeof o.response === "string") return o.response;
+  const data = o.data;
+  if (data != null && typeof data === "object") {
+    const inner = (data as Record<string, unknown>).response;
+    if (typeof inner === "string") return inner;
+  }
+  return null;
+}
 
 function createId() {
   return `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
 }
 
+const WELCOME_MESSAGE =
+  "Hi there! 👋 I'm D.A.T.A. Bot, your friendly dance studio assistant. How can I help you today?";
+
 export function ChatWidget() {
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState("");
-  const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const [messages, setMessages] = useState<ChatMessage[]>(() => [
+    { id: createId(), role: "bot", text: WELCOME_MESSAGE },
+  ]);
   const [pending, setPending] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -42,9 +63,15 @@ export function ChatWidget() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: text }),
       });
-      const data = (await res.json()) as { response?: unknown };
-      const reply = data.response;
-      if (!res.ok || typeof reply !== "string") {
+      const raw = await res.text();
+      let parsed: unknown;
+      try {
+        parsed = raw ? JSON.parse(raw) : null;
+      } catch {
+        throw new Error("Invalid JSON");
+      }
+      const reply = extractChatReplyFromJson(parsed);
+      if (!res.ok || reply == null) {
         throw new Error("Invalid response");
       }
       setMessages((prev) => [
@@ -88,31 +115,39 @@ export function ChatWidget() {
             className="flex min-h-[200px] flex-1 flex-col gap-2 overflow-y-auto bg-slate-50/50 p-3"
             aria-live="polite"
           >
-            {messages.map((m) => (
-              <div
-                key={m.id}
-                className={
-                  m.role === "user" ? "flex justify-end" : "flex justify-start"
-                }
-              >
-                <div
-                  className={
-                    m.role === "user"
-                      ? "max-w-[85%] rounded-lg rounded-br-sm bg-slate-800 px-3 py-2 text-sm text-white"
-                      : "max-w-[85%] rounded-lg rounded-bl-sm border border-slate-200 bg-white px-3 py-2 text-sm text-slate-800 shadow-sm"
-                  }
-                >
-                  {m.text}
+            {messages.map((m) =>
+              m.role === "user" ? (
+                <div key={m.id} className="flex justify-end">
+                  <div className="max-w-[85%] rounded-lg rounded-br-sm bg-slate-800 px-3 py-2 text-sm text-white">
+                    {m.text}
+                  </div>
                 </div>
-              </div>
-            ))}
+              ) : (
+                <div
+                  key={m.id}
+                  className="flex w-full min-w-0 justify-start gap-2"
+                >
+                  <ChatAssistantAvatar
+                    size={32}
+                    className="mt-0.5 self-start"
+                  />
+                  <div className="min-w-0 max-w-[min(85%,calc(100%-2.5rem))] rounded-lg rounded-bl-sm border border-slate-200 bg-white px-3 py-2 text-sm text-slate-800 shadow-sm">
+                    {m.text}
+                  </div>
+                </div>
+              ),
+            )}
             {pending && (
               <div
-                className="flex justify-start"
+                className="flex w-full min-w-0 justify-start gap-2"
                 aria-busy="true"
                 aria-label="Loading response"
               >
-                <div className="flex max-w-[85%] items-center justify-center rounded-lg rounded-bl-sm border border-slate-200 bg-white px-4 py-3 shadow-sm">
+                <ChatAssistantAvatar
+                  size={32}
+                  className="mt-0.5 self-start"
+                />
+                <div className="flex min-h-[2.5rem] min-w-0 max-w-[min(85%,calc(100%-2.5rem))] items-center justify-center rounded-lg rounded-bl-sm border border-slate-200 bg-white px-4 py-3 shadow-sm">
                   <Loader2
                     className="h-4 w-4 animate-spin text-slate-500"
                     aria-hidden
@@ -154,12 +189,12 @@ export function ChatWidget() {
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        className="pointer-events-auto flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-slate-800 text-sm font-semibold text-white shadow-md transition-colors hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2"
+        className="pointer-events-auto flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-full shadow-md ring-2 ring-white/90 transition-opacity hover:opacity-95 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2"
         aria-expanded={open}
         aria-controls="chat-widget-panel"
         aria-label={open ? "Close chat" : "Open chat"}
       >
-        Chat
+        <ChatAssistantAvatar size={48} />
       </button>
     </div>
   );
