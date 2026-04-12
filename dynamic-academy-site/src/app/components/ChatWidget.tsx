@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { X } from "lucide-react";
+import { Loader2, X } from "lucide-react";
 
 type ChatRole = "user" | "bot";
 
@@ -9,8 +9,7 @@ type ChatMessage = {
   text: string;
 };
 
-const BOT_REPLY =
-  "Thanks for your message! We'll help you shortly.";
+const CHAT_API_URL = "http://localhost:5001/chat";
 
 function createId() {
   return `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
@@ -20,24 +19,46 @@ export function ChatWidget() {
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const [pending, setPending] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const el = scrollRef.current;
     if (!el) return;
     el.scrollTo({ top: el.scrollHeight, behavior: "smooth" });
-  }, [messages]);
+  }, [messages, pending]);
 
-  function send() {
+  async function send() {
     const text = input.trim();
-    if (!text) return;
+    if (!text || pending) return;
 
-    setMessages((prev) => [
-      ...prev,
-      { id: createId(), role: "user", text },
-      { id: createId(), role: "bot", text: BOT_REPLY },
-    ]);
+    setPending(true);
+    setMessages((prev) => [...prev, { id: createId(), role: "user", text }]);
     setInput("");
+
+    try {
+      const res = await fetch(CHAT_API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: text }),
+      });
+      const data = (await res.json()) as { response?: unknown };
+      const reply = data.response;
+      if (!res.ok || typeof reply !== "string") {
+        throw new Error("Invalid response");
+      }
+      setMessages((prev) => [
+        ...prev,
+        { id: createId(), role: "bot", text: reply },
+      ]);
+    } catch {
+      setMessages((prev) => [
+        ...prev,
+        { id: createId(), role: "bot", text: "Something went wrong" },
+      ]);
+    } finally {
+      setPending(false);
+    }
   }
 
   return (
@@ -85,6 +106,20 @@ export function ChatWidget() {
                 </div>
               </div>
             ))}
+            {pending && (
+              <div
+                className="flex justify-start"
+                aria-busy="true"
+                aria-label="Loading response"
+              >
+                <div className="flex max-w-[85%] items-center justify-center rounded-lg rounded-bl-sm border border-slate-200 bg-white px-4 py-3 shadow-sm">
+                  <Loader2
+                    className="h-4 w-4 animate-spin text-slate-500"
+                    aria-hidden
+                  />
+                </div>
+              </div>
+            )}
           </div>
           <div className="shrink-0 border-t border-slate-100 bg-white p-3">
             <div className="flex gap-2">
@@ -93,19 +128,21 @@ export function ChatWidget() {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => {
-                  if (e.key === "Enter") {
+                  if (e.key === "Enter" && !pending) {
                     e.preventDefault();
-                    send();
+                    void send();
                   }
                 }}
                 placeholder="Type a message…"
-                className="min-w-0 flex-1 rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-800 placeholder:text-slate-400 focus:border-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-200"
+                disabled={pending}
+                className="min-w-0 flex-1 rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-800 placeholder:text-slate-400 focus:border-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-200 disabled:cursor-not-allowed disabled:opacity-60"
                 aria-label="Message input"
               />
               <button
                 type="button"
-                onClick={send}
-                className="shrink-0 rounded-lg bg-slate-800 px-3 py-2 text-sm font-medium text-white transition-colors hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-1"
+                onClick={() => void send()}
+                disabled={pending}
+                className="shrink-0 rounded-lg bg-slate-800 px-3 py-2 text-sm font-medium text-white transition-colors hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-60"
               >
                 Send
               </button>
