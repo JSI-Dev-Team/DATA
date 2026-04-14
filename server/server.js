@@ -1,8 +1,19 @@
+require("dotenv").config();
+
+console.log("API KEY:", process.env.OPENAI_API_KEY);
+
+const OpenAI = require("openai");
+const SYSTEM_PROMPT = require("./systemPrompt");
+
 const express = require("express");
 const cors = require("cors");
 
 const app = express();
 const PORT = 5003;
+
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+});
 
 /** @type {{ question: string; answer: string }[]} */
 const KNOWLEDGE_BASE = [
@@ -210,76 +221,47 @@ function intersectionCount(userWords, questionWords) {
  * @param {string} userMessage
  * @returns {string | null}
  */
-const SYNONYMS = {
-  fees: ["price", "cost", "charges"],
-  classes: ["programs", "courses"],
-  schedule: ["timing", "time", "hours"],
-  enroll: ["register", "join", "admission"]
-};
-
-function findAnswer(userMessage) {
-  // Replace synonyms in userMessage before normalization
-  let replacedMessage = userMessage;
-  if (typeof replacedMessage === "string") {
-    Object.entries(SYNONYMS).forEach(([main, syns]) => {
-      syns.forEach((syn) => {
-        const regex = new RegExp(`\\b${syn}\\b`, "gi");
-        replacedMessage = replacedMessage.replace(regex, main);
-      });
-    });
-  }
-  console.log("USER:", userMessage);
-  const normalized = normalizeInput(replacedMessage);
-  if (!normalized) return null;
-
-  for (let i = 0; i < KNOWLEDGE_BASE.length; i++) {
-    const item = KNOWLEDGE_BASE[i];
-    console.log("CHECKING:", item.question);
-    if (normalized === normalizeInput(item.question)) {
-      return item.answer;
-    }
-  }
-
-  const userWords = meaningfulWordSet(normalized);
-  if (userWords.size === 0) return null;
-
-  /** @type {{ score: number; answer: string }[]} */
-  const scored = [];
-  for (let j = 0; j < KNOWLEDGE_BASE.length; j++) {
-    const item = KNOWLEDGE_BASE[j];
-    const qNorm = normalizeInput(item.question);
-    const questionWords = meaningfulWordSet(qNorm);
-    const score = intersectionCount(userWords, questionWords);
-    scored.push({ score, answer: item.answer });
-  }
-
-  let maxScore = 0;
-  for (let k = 0; k < scored.length; k++) {
-    if (scored[k].score > maxScore) maxScore = scored[k].score;
-  }
-
-  if (maxScore < MIN_INTERSECTION) return null;
-
-  let winner = null;
-  let tieCount = 0;
-  for (let m = 0; m < scored.length; m++) {
-    if (scored[m].score !== maxScore) continue;
-    tieCount += 1;
-    winner = scored[m].answer;
-  }
-
-  if (tieCount !== 1) return null;
-  return winner;
-}
-
 app.use(cors());
 app.use(express.json());
 
-app.post("/chat", (req, res) => {
+app.post("/chat", async (req, res) => {
   const message =
     typeof req.body?.message === "string" ? req.body.message : "";
-  const response = findAnswer(message) ?? NO_MATCH;
-  res.json({ response });
+
+  const normalizedUser = normalizeInput(message);
+  if (!normalizedUser) {
+    return res.json({ response: NO_MATCH });
+  }
+
+  const userWords = meaningfulWordSet(normalizedUser);
+
+  let bestItem = null;
+  let bestScore = 0;
+
+  for (const item of KNOWLEDGE_BASE) {
+    const qNorm = normalizeInput(item.question);
+
+    // Simple substring match (strong signal)
+    if (qNorm && (qNorm.includes(normalizedUser) || normalizedUser.includes(qNorm))) {
+      bestItem = item;
+      bestScore = Number.POSITIVE_INFINITY;
+      break;
+    }
+
+    const qWords = meaningfulWordSet(qNorm);
+    const score = intersectionCount(userWords, qWords);
+    if (score > bestScore) {
+      bestScore = score;
+      bestItem = item;
+    }
+  }
+
+  if (!bestItem || bestScore === 0) {
+    return res.json({ response: NO_MATCH });
+  }
+
+  const matchedAnswer = bestItem.answer;
+  res.json({ response: matchedAnswer });
 });
 
 app.listen(PORT, () => {

@@ -10,23 +10,6 @@ type ChatMessage = {
   text: string;
 };
 
-const CHAT_API_URL = "http://localhost:5003/chat";
-
-/**
- * Reads the chat reply from JSON: fetch body `{ response }` or axios-style `{ data: { response } }`.
- */
-function extractChatReplyFromJson(payload: unknown): string | null {
-  if (payload == null || typeof payload !== "object") return null;
-  const o = payload as Record<string, unknown>;
-  if (typeof o.response === "string") return o.response;
-  const data = o.data;
-  if (data != null && typeof data === "object") {
-    const inner = (data as Record<string, unknown>).response;
-    if (typeof inner === "string") return inner;
-  }
-  return null;
-}
-
 function createId() {
   return `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
 }
@@ -58,30 +41,35 @@ export function ChatWidget() {
     setInput("");
 
     try {
-      const res = await fetch(CHAT_API_URL, {
+      const response = await fetch("http://localhost:5003/chat", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify({ message: text }),
       });
-      const raw = await res.text();
-      let parsed: unknown;
-      try {
-        parsed = raw ? JSON.parse(raw) : null;
-      } catch {
-        throw new Error("Invalid JSON");
-      }
-      const reply = extractChatReplyFromJson(parsed);
-      if (!res.ok || reply == null) {
-        throw new Error("Invalid response");
-      }
+
+      const data = (await response.json()) as { response?: string };
+      const assistantText = data.response?.trim()
+        ? data.response
+        : "Sorry, I don’t have information on that.";
+
       setMessages((prev) => [
         ...prev,
-        { id: createId(), role: "bot", text: reply },
+        {
+          id: createId(),
+          role: "bot",
+          text: assistantText,
+        },
       ]);
     } catch {
       setMessages((prev) => [
         ...prev,
-        { id: createId(), role: "bot", text: "Something went wrong" },
+        {
+          id: createId(),
+          role: "bot",
+          text: "Sorry, I don’t have information on that.",
+        },
       ]);
     } finally {
       setPending(false);
@@ -189,12 +177,12 @@ export function ChatWidget() {
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        className="pointer-events-auto flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-full shadow-md ring-2 ring-white/90 transition-opacity hover:opacity-95 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2"
+        className="pointer-events-auto flex h-16 w-16 shrink-0 items-center justify-center border-0 bg-transparent p-0 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2"
         aria-expanded={open}
         aria-controls="chat-widget-panel"
         aria-label={open ? "Close chat" : "Open chat"}
       >
-        <ChatAssistantAvatar size={48} />
+        <ChatAssistantAvatar variant="button" />
       </button>
     </div>
   );
