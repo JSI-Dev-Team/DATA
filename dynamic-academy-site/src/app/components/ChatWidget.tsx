@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Loader2, X } from "lucide-react";
+import { X } from "lucide-react";
 import { ChatAssistantAvatar } from "./ChatAssistantAvatar";
 
 type ChatRole = "user" | "bot";
@@ -8,6 +8,8 @@ type ChatMessage = {
   id: string;
   role: ChatRole;
   text: string;
+  category?: keyof typeof FOLLOW_UP_SUGGESTIONS;
+  feedbackGiven?: boolean;
 };
 
 function createId() {
@@ -17,6 +19,33 @@ function createId() {
 const WELCOME_MESSAGE =
   "Hi there! 👋 I'm D.A.T.A. Bot, your friendly dance studio assistant. How can I help you today?";
 
+const INITIAL_SUGGESTIONS = [
+  "What classes do you offer?",
+  "How do I register?",
+  "What are your prices?",
+  "Where are you located?",
+];
+
+const FOLLOW_UP_SUGGESTIONS = {
+  pricing: ["Register Now", "Free Trial Class"],
+  schedule: ["Pricing Info", "How do I register?"],
+  injury: ["Meet Our Instructors", "Contact Us"],
+  complaint: ["Contact Us", "Talk to a Human"],
+  refund: ["Contact Us", "Free Trial Class"],
+  general: ["View Classes", "Contact Us"],
+} as const;
+
+const CHIP_TO_QUERY: Record<string, string> = {
+  "Contact Us": "How can I contact the studio?",
+  "Talk to a Human": "How can I contact the studio?",
+  "View Classes": "What classes do you offer?",
+  "Pricing Info": "What are your prices?",
+  "How do I register?": "How do I register?",
+  "Register Now": "How do I register?",
+  "Free Trial Class": "Do you offer a free trial class?",
+  "Meet Our Instructors": "Are instructors certified in first aid?",
+};
+
 export function ChatWidget() {
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState("");
@@ -24,6 +53,7 @@ export function ChatWidget() {
     { id: createId(), role: "bot", text: WELCOME_MESSAGE },
   ]);
   const [pending, setPending] = useState(false);
+  const [isTyping, setIsTyping] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -32,11 +62,35 @@ export function ChatWidget() {
     el.scrollTo({ top: el.scrollHeight, behavior: "smooth" });
   }, [messages, pending]);
 
-  async function send() {
-    const text = input.trim();
+  const showInitialSuggestions = messages.every((m) => m.role !== "user");
+
+  const handleFeedback = (id: string, type: "up" | "down") => {
+    console.log("Feedback:", { id, type });
+
+    setMessages((prev) =>
+      prev.map((msg) => (msg.id === id ? { ...msg, feedbackGiven: true } : msg)),
+    );
+  };
+
+  const handleTalkToHuman = () => {
+    setMessages((prev) => [
+      ...prev,
+      {
+        id: createId(),
+        role: "bot",
+        text:
+          "We’d be happy to connect you with our team!\n\nEmail: dynamicacademyofthearts@gmail.com\nPhone: (506) 847-1164\nOr use our contact form at dynamicacademy.ca/contact",
+        category: "general",
+      },
+    ]);
+  };
+
+  async function sendMessage(userText: string) {
+    const text = userText.trim();
     if (!text || pending) return;
 
     setPending(true);
+    setIsTyping(true);
     setMessages((prev) => [...prev, { id: createId(), role: "user", text }]);
     setInput("");
 
@@ -49,20 +103,28 @@ export function ChatWidget() {
         body: JSON.stringify({ message: text }),
       });
 
-      const data = (await response.json()) as { response?: string };
+      const data = (await response.json()) as {
+        response?: string;
+        category?: keyof typeof FOLLOW_UP_SUGGESTIONS;
+      };
       const assistantText = data.response?.trim()
         ? data.response
         : "Sorry, I don’t have information on that.";
 
+      await new Promise((resolve) => setTimeout(resolve, 700));
+      setIsTyping(false);
       setMessages((prev) => [
         ...prev,
         {
           id: createId(),
           role: "bot",
           text: assistantText,
+          category: data.category ?? "general",
         },
       ]);
     } catch {
+      await new Promise((resolve) => setTimeout(resolve, 700));
+      setIsTyping(false);
       setMessages((prev) => [
         ...prev,
         {
@@ -74,6 +136,10 @@ export function ChatWidget() {
     } finally {
       setPending(false);
     }
+  }
+
+  async function send() {
+    return sendMessage(input);
   }
 
   return (
@@ -103,7 +169,7 @@ export function ChatWidget() {
             className="flex min-h-[200px] flex-1 flex-col gap-2 overflow-y-auto bg-slate-50/50 p-3"
             aria-live="polite"
           >
-            {messages.map((m) =>
+            {messages.map((m, idx) =>
               m.role === "user" ? (
                 <div key={m.id} className="flex justify-end">
                   <div className="max-w-[85%] rounded-lg rounded-br-sm bg-slate-800 px-3 py-2 text-sm text-white">
@@ -119,32 +185,100 @@ export function ChatWidget() {
                     size={32}
                     className="mt-0.5 self-start"
                   />
-                  <div className="min-w-0 max-w-[min(85%,calc(100%-2.5rem))] rounded-lg rounded-bl-sm border border-slate-200 bg-white px-3 py-2 text-sm text-slate-800 shadow-sm">
-                    {m.text}
+                  <div className="min-w-0 max-w-[min(85%,calc(100%-2.5rem))]">
+                    <div className="rounded-lg rounded-bl-sm border border-slate-200 bg-white px-3 py-2 text-sm text-slate-800 shadow-sm">
+                      {m.text}
+                    </div>
+                    {!m.feedbackGiven && (
+                      <div className="mt-2 flex items-center gap-2">
+                        <span className="text-xs text-gray-500">
+                          Was this helpful?
+                        </span>
+
+                        <button
+                          type="button"
+                          onClick={() => handleFeedback(m.id, "up")}
+                          className="text-sm transition-transform hover:scale-110"
+                        >
+                          👍
+                        </button>
+
+                        <button
+                          type="button"
+                          onClick={() => handleFeedback(m.id, "down")}
+                          className="text-sm transition-transform hover:scale-110"
+                        >
+                          👎
+                        </button>
+                      </div>
+                    )}
+                    {m.feedbackGiven && (
+                      <div className="mt-1 text-xs text-green-600">
+                        Thanks for your feedback!
+                      </div>
+                    )}
+                    {idx === 0 && showInitialSuggestions && (
+                      <div className="mt-2 flex flex-col items-start gap-2">
+                        {INITIAL_SUGGESTIONS.map((s) => (
+                          <button
+                            key={s}
+                            type="button"
+                            disabled={pending}
+                            onClick={() => void sendMessage(s)}
+                            className="inline-block rounded-full border border-slate-200 bg-slate-100 px-3.5 py-2 text-left text-sm text-slate-700 transition-colors hover:bg-slate-200 disabled:cursor-not-allowed disabled:opacity-60"
+                          >
+                            {s}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                    {m.category && !pending && (
+                      <div className="mt-2 flex flex-wrap gap-2">
+                        {(FOLLOW_UP_SUGGESTIONS[m.category] ||
+                          FOLLOW_UP_SUGGESTIONS.general)
+                          .slice(0, 3)
+                          .map((s) => (
+                            <button
+                              key={s}
+                              type="button"
+                              onClick={() => {
+                                const mapped = CHIP_TO_QUERY[s] || s;
+                                void sendMessage(mapped);
+                              }}
+                              className="inline-block rounded-full border border-slate-200 bg-slate-100 px-3 py-1.5 text-xs text-slate-700 transition-colors hover:bg-slate-200 disabled:cursor-not-allowed disabled:opacity-60"
+                            >
+                              {s}
+                            </button>
+                          ))}
+                      </div>
+                    )}
                   </div>
                 </div>
               ),
             )}
-            {pending && (
-              <div
-                className="flex w-full min-w-0 justify-start gap-2"
-                aria-busy="true"
-                aria-label="Loading response"
-              >
-                <ChatAssistantAvatar
-                  size={32}
-                  className="mt-0.5 self-start"
-                />
-                <div className="flex min-h-[2.5rem] min-w-0 max-w-[min(85%,calc(100%-2.5rem))] items-center justify-center rounded-lg rounded-bl-sm border border-slate-200 bg-white px-4 py-3 shadow-sm">
-                  <Loader2
-                    className="h-4 w-4 animate-spin text-slate-500"
-                    aria-hidden
-                  />
+            {isTyping && (
+              <div className="flex items-start gap-2" aria-busy="true">
+                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-purple-200">
+                  <span>🟣</span>
+                </div>
+                <div className="flex gap-1 rounded-lg bg-gray-100 px-3 py-2">
+                  <span className="dot"></span>
+                  <span className="dot"></span>
+                  <span className="dot"></span>
                 </div>
               </div>
             )}
           </div>
           <div className="shrink-0 border-t border-slate-100 bg-white p-3">
+            <div className="mt-2 mb-2 flex items-center justify-start">
+              <button
+                type="button"
+                onClick={handleTalkToHuman}
+                className="bg-orange-100 text-orange-700 px-3 py-1.5 text-sm rounded-full hover:bg-orange-200 font-medium inline-block"
+              >
+                Talk to a Human
+              </button>
+            </div>
             <div className="flex gap-2">
               <input
                 type="text"
@@ -184,6 +318,35 @@ export function ChatWidget() {
       >
         <ChatAssistantAvatar variant="button" />
       </button>
+
+      <style>{`
+        .dot {
+          width: 6px;
+          height: 6px;
+          background: #555;
+          border-radius: 50%;
+          animation: bounce 1.2s infinite;
+        }
+
+        .dot:nth-child(2) {
+          animation-delay: 0.2s;
+        }
+
+        .dot:nth-child(3) {
+          animation-delay: 0.4s;
+        }
+
+        @keyframes bounce {
+          0%,
+          80%,
+          100% {
+            transform: scale(0);
+          }
+          40% {
+            transform: scale(1);
+          }
+        }
+      `}</style>
     </div>
   );
 }
