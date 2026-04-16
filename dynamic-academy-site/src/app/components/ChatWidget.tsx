@@ -4,11 +4,21 @@ import { ChatAssistantAvatar } from "./ChatAssistantAvatar";
 
 type ChatRole = "user" | "bot";
 
+type ChatCategory =
+  | "pricing"
+  | "schedule"
+  | "complaint"
+  | "safety"
+  | "refund"
+  | "billing"
+  | "injury"
+  | "general";
+
 type ChatMessage = {
   id: string;
   role: ChatRole;
   text: string;
-  category?: keyof typeof FOLLOW_UP_SUGGESTIONS;
+  category?: ChatCategory;
   feedbackGiven?: boolean;
 };
 
@@ -29,11 +39,37 @@ const INITIAL_SUGGESTIONS = [
 const FOLLOW_UP_SUGGESTIONS = {
   pricing: ["Register Now", "Free Trial Class"],
   schedule: ["Pricing Info", "How do I register?"],
-  injury: ["Meet Our Instructors", "Contact Us"],
   complaint: ["Contact Us", "Talk to a Human"],
-  refund: ["Contact Us", "Free Trial Class"],
+  safety: ["Meet Our Instructors", "Contact Us"],
   general: ["View Classes", "Contact Us"],
 } as const;
+
+function getFollowUpSuggestions(category: ChatCategory | undefined): string[] {
+  const normalizedCategory: keyof typeof FOLLOW_UP_SUGGESTIONS =
+    category === "injury"
+      ? "safety"
+      : category === "refund" || category === "billing"
+        ? "complaint"
+        : category === "pricing" ||
+            category === "schedule" ||
+            category === "complaint" ||
+            category === "safety"
+          ? category
+          : "general";
+
+  const raw = FOLLOW_UP_SUGGESTIONS[normalizedCategory] ?? FOLLOW_UP_SUGGESTIONS.general;
+
+  const uniq: string[] = [];
+  const seen = new Set<string>();
+  for (const s of raw) {
+    const v = String(s ?? "").trim();
+    if (!v || seen.has(v)) continue;
+    seen.add(v);
+    uniq.push(v);
+  }
+
+  return uniq;
+}
 
 const CHIP_TO_QUERY: Record<string, string> = {
   "Contact Us": "How can I contact the studio?",
@@ -48,12 +84,14 @@ const CHIP_TO_QUERY: Record<string, string> = {
 
 export function ChatWidget() {
   const [open, setOpen] = useState(false);
+  const [hasInteracted, setHasInteracted] = useState(false);
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState<ChatMessage[]>(() => [
     { id: createId(), role: "bot", text: WELCOME_MESSAGE },
   ]);
   const [pending, setPending] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
+  const [lastCategory, setLastCategory] = useState<ChatCategory | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -73,6 +111,7 @@ export function ChatWidget() {
   };
 
   const handleTalkToHuman = () => {
+    setLastCategory(null);
     setMessages((prev) => [
       ...prev,
       {
@@ -86,12 +125,23 @@ export function ChatWidget() {
   };
 
   async function sendMessage(userText: string) {
-    const text = userText.trim();
-    if (!text || pending) return;
+    const displayText = userText.trim();
+    if (!displayText || pending) return;
+
+    let text = displayText;
+    const words = text.split(/\s+/).filter(Boolean);
+    const isShort = words.length <= 3;
+
+    if (isShort && lastCategory) {
+      text = lastCategory + " " + text;
+    }
 
     setPending(true);
     setIsTyping(true);
-    setMessages((prev) => [...prev, { id: createId(), role: "user", text }]);
+    setMessages((prev) => [
+      ...prev,
+      { id: createId(), role: "user", text: displayText },
+    ]);
     setInput("");
 
     try {
@@ -105,7 +155,7 @@ export function ChatWidget() {
 
       const data = (await response.json()) as {
         response?: string;
-        category?: keyof typeof FOLLOW_UP_SUGGESTIONS;
+        category?: ChatCategory;
       };
       const assistantText = data.response?.trim()
         ? data.response
@@ -113,6 +163,7 @@ export function ChatWidget() {
 
       await new Promise((resolve) => setTimeout(resolve, 700));
       setIsTyping(false);
+      setLastCategory(data.category ?? null);
       setMessages((prev) => [
         ...prev,
         {
@@ -125,6 +176,7 @@ export function ChatWidget() {
     } catch {
       await new Promise((resolve) => setTimeout(resolve, 700));
       setIsTyping(false);
+      setLastCategory(null);
       setMessages((prev) => [
         ...prev,
         {
@@ -232,11 +284,10 @@ export function ChatWidget() {
                         ))}
                       </div>
                     )}
-                    {m.category && !pending && (
+                    {idx === messages.length - 1 && m.category && !pending && (
                       <div className="mt-2 flex flex-wrap gap-2">
-                        {(FOLLOW_UP_SUGGESTIONS[m.category] ||
-                          FOLLOW_UP_SUGGESTIONS.general)
-                          .slice(0, 3)
+                        {getFollowUpSuggestions(m.category)
+                          .slice(0, 2)
                           .map((s) => (
                             <button
                               key={s}
@@ -308,16 +359,24 @@ export function ChatWidget() {
         </div>
       )}
 
-      <button
-        type="button"
-        onClick={() => setOpen((v) => !v)}
-        className="pointer-events-auto flex h-16 w-16 shrink-0 items-center justify-center border-0 bg-transparent p-0 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2"
-        aria-expanded={open}
-        aria-controls="chat-widget-panel"
-        aria-label={open ? "Close chat" : "Open chat"}
-      >
-        <ChatAssistantAvatar variant="button" />
-      </button>
+      <div className="relative group pointer-events-auto">
+        <div className="absolute bottom-full left-1/2 mb-2 hidden -translate-x-1/2 whitespace-nowrap rounded bg-black px-2 py-1 text-xs text-white shadow-md group-hover:block">
+          Chat with D.A.T.A. Bot
+        </div>
+        <button
+          type="button"
+          onClick={() => {
+            setOpen((v) => !v);
+            setHasInteracted(true);
+          }}
+          className={`flex h-16 w-16 shrink-0 items-center justify-center border-0 bg-transparent p-0 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2${!hasInteracted ? " animate-pulse-custom" : ""}`}
+          aria-expanded={open}
+          aria-controls="chat-widget-panel"
+          aria-label={open ? "Close chat" : "Open chat"}
+        >
+          <ChatAssistantAvatar variant="button" />
+        </button>
+      </div>
 
       <style>{`
         .dot {
@@ -344,6 +403,25 @@ export function ChatWidget() {
           }
           40% {
             transform: scale(1);
+          }
+        }
+
+        .animate-pulse-custom {
+          animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+          0% {
+            transform: scale(1);
+            box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.2);
+          }
+          70% {
+            transform: scale(1.05);
+            box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+          }
+          100% {
+            transform: scale(1);
+            box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
           }
         }
       `}</style>

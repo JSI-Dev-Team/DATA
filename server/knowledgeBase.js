@@ -96,6 +96,26 @@ const KNOWLEDGE_BASE = [
     answer: "Recreational tuition: 30 min = $48.30/mo, 60 min = $61.70/mo, 90 min = $86.40/mo, 2 hrs = $98.75/mo. All prices + HST."
   },
   {
+    question: "What are your prices?",
+    answer: "Recreational tuition: 30 min = $48.30/mo, 60 min = $61.70/mo, 90 min = $86.40/mo, 2 hrs = $98.75/mo. All prices + HST. Competitive program tuition varies—please contact us at dynamicacademyofthearts@gmail.com or visit dynamicacademy.ca/classes for the most current pricing."
+  },
+  {
+    question: "What is the cost of classes?",
+    answer: "Recreational tuition: 30 min = $48.30/mo, 60 min = $61.70/mo, 90 min = $86.40/mo, 2 hrs = $98.75/mo. All prices + HST. Competitive program tuition varies—please contact us at dynamicacademyofthearts@gmail.com or visit dynamicacademy.ca/classes for the most current pricing."
+  },
+  {
+    question: "How much does dance class cost?",
+    answer: "Recreational tuition: 30 min = $48.30/mo, 60 min = $61.70/mo, 90 min = $86.40/mo, 2 hrs = $98.75/mo. All prices + HST. Competitive program tuition varies—please contact us at dynamicacademyofthearts@gmail.com or visit dynamicacademy.ca/classes for the most current pricing."
+  },
+  {
+    question: "What are your fees?",
+    answer: "Recreational tuition: 30 min = $48.30/mo, 60 min = $61.70/mo, 90 min = $86.40/mo, 2 hrs = $98.75/mo. All prices + HST. Competitive program tuition varies—please contact us at dynamicacademyofthearts@gmail.com or visit dynamicacademy.ca/classes for the most current pricing."
+  },
+  {
+    question: "Do you have pricing details?",
+    answer: "Recreational tuition: 30 min = $48.30/mo, 60 min = $61.70/mo, 90 min = $86.40/mo, 2 hrs = $98.75/mo. All prices + HST. Competitive program tuition varies—please contact us at dynamicacademyofthearts@gmail.com or visit dynamicacademy.ca/classes for the most current pricing."
+  },
+  {
     question: "What’s the cost for ages 5–6?",
     answer: "Ages 5–6: Tap, Jazz & Hip Hop combo = $86.40/mo + HST. Hip Hop only = $48.30/mo + HST."
   },

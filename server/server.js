@@ -8,7 +8,7 @@ const app = express();
 const PORT = 5003;
 
 const NO_MATCH =
-  "I'm sorry, I don't have that information right now. Please contact the studio for assistance.";
+  "That's a great question! I don't have that specific information right now, but I'd love to help you get an answer. Please reach out to our team at dynamicacademyofthearts@gmail.com or call (506) 847-1164, and we'll get back to you as soon as possible.";
 
 const EMPATHY_OPENERS = [
   "Great question!",
@@ -17,6 +17,10 @@ const EMPATHY_OPENERS = [
   "We totally understand your question.",
   "Happy to help!",
 ];
+
+function formatResponse(opener, answer, cta) {
+  return opener + "\n\n" + answer + "\n\n" + cta;
+}
 
 const CTA_BY_TOPIC = {
   refund:
@@ -28,7 +32,7 @@ const CTA_BY_TOPIC = {
   complaint:
     "Please contact our team at dynamicacademyofthearts@gmail.com so we can address your concern properly.",
   general:
-    "Visit dynamicacademy.ca or call us at (506) 847-1164 for more information.",
+    "For more details, feel free to contact us at (506) 847-1164 or visit dynamicacademy.ca.",
 };
 
 const SYNONYMS = {
@@ -140,11 +144,42 @@ app.post("/chat", (req, res) => {
 
     const topicCTA = CTA_BY_TOPIC[sensitiveCategory] || CTA_BY_TOPIC.general;
 
-    const finalResponse =
-      empathyValidation + "\n\n" + matchedAnswer + "\n\n" + topicCTA;
+    const finalResponse = formatResponse(
+      empathyValidation,
+      matchedAnswer,
+      topicCTA,
+    );
 
     return res.json({ response: finalResponse, category: sensitiveCategory });
   }
+
+  const STOP_WORDS = new Set([
+    "a",
+    "an",
+    "and",
+    "are",
+    "can",
+    "do",
+    "for",
+    "i",
+    "is",
+    "it",
+    "me",
+    "my",
+    "of",
+    "on",
+    "or",
+    "the",
+    "to",
+    "we",
+    "what",
+    "when",
+    "where",
+    "who",
+    "why",
+    "you",
+    "your",
+  ]);
 
   const detectedCategory = (() => {
     // schedule
@@ -162,13 +197,72 @@ app.post("/chat", (req, res) => {
       "fees",
       "rates",
     ];
+    // STRONG: any pricing keyword triggers pricing category
     if (pricingKeywords.some((t) => input.includes(normalize(t)))) {
       return "pricing";
     }
-    return "general";
+    return null;
   })();
 
-  const baseKeywords = input.split(" ").filter(Boolean);
+  const baseKeywords = input
+    .split(/\s+/)
+    .map((w) => w.trim())
+    .filter((w) => w && w.length >= 3 && !STOP_WORDS.has(w));
+
+  // Basic domain gate: if input doesn't look like a studio/dance question, fallback
+  const DOMAIN_KEYWORDS = [
+    "class",
+    "classes",
+    "dance",
+    "studio",
+    "register",
+    "registration",
+    "enrol",
+    "enroll",
+    "tuition",
+    "price",
+    "prices",
+    "pricing",
+    "cost",
+    "fee",
+    "fees",
+    "schedule",
+    "recital",
+    "camp",
+    "competitive",
+    "ballet",
+    "tap",
+    "jazz",
+    "hiphop",
+    "acro",
+    "lyrical",
+    "contemporary",
+    "dress",
+    "refund",
+    "billing",
+    "payment",
+    "injury",
+    "hurt",
+    "complaint",
+    "contact",
+    "address",
+    "hours",
+  ];
+
+  const domainSet = new Set(DOMAIN_KEYWORDS);
+  const domainHits = new Set(baseKeywords.filter((w) => domainSet.has(w)));
+
+  // STRICT DOMAIN VALIDATION: require at least 2 meaningful domain keywords
+  // (do not allow weak/accidental overlap to proceed)
+  let domainCount = domainHits.size;
+  if (detectedCategory != null) domainCount += 1;
+
+  // Pricing exception: allow single strong pricing signal
+  const minDomainCount = detectedCategory === "pricing" ? 1 : 2;
+
+  if (domainCount < minDomainCount) {
+    return res.json({ response: NO_MATCH, category: "general" });
+  }
   const expandedTerms = new Set(baseKeywords);
 
   // Expand user intent via simple synonyms/phrases
@@ -203,7 +297,12 @@ app.post("/chat", (req, res) => {
       break;
     }
 
-    const qWords = new Set(q.split(" ").filter(Boolean));
+    const qWords = new Set(
+      q
+        .split(/\s+/)
+        .map((w) => w.trim())
+        .filter((w) => w && w.length >= 3 && !STOP_WORDS.has(w)),
+    );
 
     let matches = 0;
     let score = 0;
@@ -248,18 +347,29 @@ app.post("/chat", (req, res) => {
     }
   }
 
-  if (!bestItem || bestMatches < 2) {
-    return res.json({ response: NO_MATCH, category: detectedCategory });
+  // STRICT FINAL FILTER: require strong score + enough matches
+  // Pricing exception: allow a single clear match for pricing queries
+  const minMatches = detectedCategory === "pricing" ? 1 : 2;
+  const minScore = detectedCategory === "pricing" ? 1 : 3;
+
+  if (!bestItem || bestScore < minScore || bestMatches < minMatches) {
+    return res.json({
+      response: NO_MATCH,
+      category: detectedCategory || "general",
+    });
   }
 
   const matchedAnswer = bestItem.answer;
   const empathyOpener =
     EMPATHY_OPENERS[Math.floor(Math.random() * EMPATHY_OPENERS.length)];
 
-  const finalResponse =
-    empathyOpener + "\n\n" + matchedAnswer + "\n\n" + CTA_BY_TOPIC.general;
+  const finalResponse = formatResponse(
+    empathyOpener,
+    matchedAnswer,
+    CTA_BY_TOPIC.general,
+  );
 
-  res.json({ response: finalResponse, category: detectedCategory });
+  res.json({ response: finalResponse, category: detectedCategory || "general" });
 });
 
 app.listen(PORT, () => {
