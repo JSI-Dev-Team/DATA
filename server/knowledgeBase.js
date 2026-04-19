@@ -8,6 +8,10 @@ const KNOWLEDGE_BASE = [
     answer: "Yes. Registration Fee: $35.00 + HST per student. Costume Deposit Fee: $75.00 or $150.00 + HST (depending on class length)."
   },
   {
+    question: "My daughter is 4 years old. What classes can she take?",
+    answer: "For ages 3–4 we offer Ballet ($48.30/mo + HST), Tap ($48.30/mo + HST), and a Ballet + Tap Combo ($61.70/mo + HST)."
+  },
+  {
     question: "My son is 12 years old and wants to try dance for the first time. What do you recommend?",
     answer: "We recommend All Styles (2 hrs/week) at $98.75/mo + HST, or Hip Hop (30 min/week) at $48.30/mo + HST."
   },
@@ -33,7 +37,7 @@ const KNOWLEDGE_BASE = [
   },
   {
     question: "Can siblings be registered in the same class?",
-    answer: "Yes, siblings can be registered in the same class if they are the appropriate age for the class they are interested in."
+    answer: "Yes, siblings can be registered in the same class if they are the appropriate age for the class they are interested in. -------------------------------------------------------------------------------------------------------------------- Classes & Programs (15 entries)"
   },
   {
     question: "What dance programs and classes do you offer?",
@@ -92,28 +96,12 @@ const KNOWLEDGE_BASE = [
     answer: "Typically, students are placed in age-appropriate classes. Parent-child classes are not a standard offering. Contact the studio to discuss options."
   },
   {
+    question: "Is there a trial class I can sign my daughter up for before committing?",
+    answer: "Yes! We offer a Free Trial Class. No experience required. Sign up at dynamicacademy.ca/free-trial-class. We'll help you find the right class fit."
+  },
+  {
     question: "How much do classes cost? What are your tuition fees?",
     answer: "Recreational tuition: 30 min = $48.30/mo, 60 min = $61.70/mo, 90 min = $86.40/mo, 2 hrs = $98.75/mo. All prices + HST."
-  },
-  {
-    question: "What are your prices?",
-    answer: "Recreational tuition: 30 min = $48.30/mo, 60 min = $61.70/mo, 90 min = $86.40/mo, 2 hrs = $98.75/mo. All prices + HST. Competitive program tuition varies—please contact us at dynamicacademyofthearts@gmail.com or visit dynamicacademy.ca/classes for the most current pricing."
-  },
-  {
-    question: "What is the cost of classes?",
-    answer: "Recreational tuition: 30 min = $48.30/mo, 60 min = $61.70/mo, 90 min = $86.40/mo, 2 hrs = $98.75/mo. All prices + HST. Competitive program tuition varies—please contact us at dynamicacademyofthearts@gmail.com or visit dynamicacademy.ca/classes for the most current pricing."
-  },
-  {
-    question: "How much does dance class cost?",
-    answer: "Recreational tuition: 30 min = $48.30/mo, 60 min = $61.70/mo, 90 min = $86.40/mo, 2 hrs = $98.75/mo. All prices + HST. Competitive program tuition varies—please contact us at dynamicacademyofthearts@gmail.com or visit dynamicacademy.ca/classes for the most current pricing."
-  },
-  {
-    question: "What are your fees?",
-    answer: "Recreational tuition: 30 min = $48.30/mo, 60 min = $61.70/mo, 90 min = $86.40/mo, 2 hrs = $98.75/mo. All prices + HST. Competitive program tuition varies—please contact us at dynamicacademyofthearts@gmail.com or visit dynamicacademy.ca/classes for the most current pricing."
-  },
-  {
-    question: "Do you have pricing details?",
-    answer: "Recreational tuition: 30 min = $48.30/mo, 60 min = $61.70/mo, 90 min = $86.40/mo, 2 hrs = $98.75/mo. All prices + HST. Competitive program tuition varies—please contact us at dynamicacademyofthearts@gmail.com or visit dynamicacademy.ca/classes for the most current pricing."
   },
   {
     question: "What’s the cost for ages 5–6?",
@@ -157,7 +145,7 @@ const KNOWLEDGE_BASE = [
   },
   {
     question: "What is the Summer Elite Technique Program?",
-    answer: "The Summer Elite Technique Program is a 5-week program for ages 5–18, running Tuesdays and Wednesdays 4:30–6:30 PM at $130 for the full session."
+    answer: "The Summer Elite Technique Program is a 5-week program for ages 5–18, running Tuesdays and Wednesdays 4:30–6:30 PM at $130 for the full session. ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- Billing & Payments (11 entries)"
   },
   {
     question: "What payment methods do you accept?",
@@ -184,6 +172,10 @@ const KNOWLEDGE_BASE = [
     answer: "We’re sorry to hear that! Please contact the office right away with your billing details. Our team handles billing disputes and will review and resolve the discrepancy promptly — typically within 2–3 business days. Please include your name, your child’s name, and the dates/amounts in question when you reach out."
   },
   {
+    question: "What payment methods do you accept?",
+    answer: "We accept Visa, Mastercard, cheques, and cash. Payments are deposited on the 1st of each month (September through May). You can save $20 by paying the full year’s tuition upfront."
+  },
+  {
     question: "What happens if my payment is late or a cheque bounces?",
     answer: "A $25 administration fee is charged for returned cheques or late payments. If the outstanding balance is not resolved within 30 days, your child will not be permitted to attend class until the account is current."
   },
@@ -192,8 +184,12 @@ const KNOWLEDGE_BASE = [
     answer: "Two weeks’ written notice is required to stop tuition payment, and it must be submitted by email to dynamicacademyofmythearts@gmail.com. Once a payment has been processed or deposited, no refund will be given. Registration and costume deposit fees are non-refundable."
   },
   {
+    question: "Is there a sibling discount? (New)",
+    answer: "We do not currently offer a sibling discount, but we encourage families to ask about any current promotions when registering. Contact the studio for details."
+  },
+  {
     question: "Are costume fees included in tuition?",
-    answer: "No. Costume fees are separate from tuition. A costume deposit of $75.00 to $150.00 + HST is required at registration, depending on class length (2 costumes for 1.5-hour classes). These fees cover year-end recital costumes and are non-refundable."
+    answer: "No. Costume fees are separate from tuition. A costume deposit of $75.00 to $150.00 + HST is required at registration, depending on class length (2 costumes for 1.5-hour classes). These fees cover year-end recital costumes and are non-refundable. Studio Policies (17 entries)"
   },
   {
     question: "What is your attendance policy? What happens if my child misses a class?",
@@ -212,12 +208,12 @@ const KNOWLEDGE_BASE = [
     answer: "We're sorry to hear that. For weather cancellations, our policy is that refunds are not issued and makeup classes cannot be guaranteed. For studio-initiated cancellations for other reasons, please contact the office directly so we can review the situation and make it right."
   },
   {
-    question: "Can parents watch classes?",
-    answer: "Parents are welcome to observe during designated observation weeks. For regular classes, we ask that parents use the waiting area to minimize distractions for the dancers. This helps our instructors maintain focus and keeps the classroom environment productive."
+    question: "Can parents watch the classes?",
+    answer: "We host 2 recitals per year for parents to witness their child's progress, but parents are not permitted to observe weekly classes. We believe this helps children focus and thrive in their learning environment."
   },
   {
     question: "Is there a waiting area for parents?",
-    answer: "Yes, we have a comfortable waiting area where parents can sit during class times. We ask that you keep noise to a minimum so our dancers can focus."
+    answer: "We have a reception area at the studio; however, parents are not encouraged to linger while their students are in class."
   },
   {
     question: "Do you have parking available?",
@@ -252,8 +248,16 @@ const KNOWLEDGE_BASE = [
     answer: "D.A.T.A. operates two locations with 4 studios total, all featuring top-tier dance flooring and training equipment."
   },
   {
+    question: "What is DATOA's policy on class cancellations due to weather?",
+    answer: "For weekday classes, check your email or our website by 3 PM that day. For weekend classes, check by 8 AM that morning. Classes are NOT always cancelled when schools close. Parents should use their own judgment about safety. If a class is cancelled, we cannot guarantee a make-up class."
+  },
+  {
     question: "What is the dress code for classes?",
     answer: "Dance attire varies by style. Generally: ballet requires a leotard, tights, and ballet shoes; jazz and tap classes require appropriate dance shoes and fitted clothing. Hair should be pulled back neatly. Your instructor will provide specific requirements at the start of the season."
+  },
+  {
+    question: "Do you have a waiting area for parents?",
+    answer: "Yes, we have a comfortable waiting area where parents can sit during class times. We ask that you keep noise to a minimum so our dancers can focus. ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- General Info (17 entries)"
   },
   {
     question: "Where is the studio located? What is the address?",
@@ -261,7 +265,7 @@ const KNOWLEDGE_BASE = [
   },
   {
     question: "What are the studio hours of operation?",
-    answer: "Our studio hours vary by day and season. Classes typically run weekday evenings and Saturday mornings. Check dynamicacademy.ca/classes for the current schedule, or call us at (506) 847-1164."
+    answer: "Please contact the studio for current hours of operation. You can reach us by phone at (506) 847-1164, by email, or through the contact form at dynamicacademy.ca."
   },
   {
     question: "How can I contact the studio?",
@@ -280,6 +284,10 @@ const KNOWLEDGE_BASE = [
     answer: "6 Market Street, Quispamsis, New Brunswick, E2E 4B1."
   },
   {
+    question: "How many students are currently enrolled at D.A.T.A.?",
+    answer: "We currently have 300+ dancers enrolled at the studio."
+  },
+  {
     question: "What is your website URL?",
     answer: "Our website is dynamicacademy.ca."
   },
@@ -292,6 +300,10 @@ const KNOWLEDGE_BASE = [
     answer: "You can find us on Facebook, Instagram, YouTube, and TikTok @dynamicacademyofthearts."
   },
   {
+    question: "Do you sell dance shoes or uniforms at the studio?",
+    answer: "We do not sell dance shoes or uniforms at the studio. We recommend checking local dancewear retailers or online stores. Contact the studio for brand and style guidance."
+  },
+  {
     question: "Where can I buy the required dance shoes and attire?",
     answer: "Dance shoes and attire can be purchased at local dancewear retailers or online. Contact the studio for specific brand or style guidance."
   },
@@ -300,12 +312,32 @@ const KNOWLEDGE_BASE = [
     answer: "Our classes are primarily offered in English. We warmly welcome Francophone families — please contact us directly for more information on available options."
   },
   {
+    question: "How many students does DATOA currently have enrolled?",
+    answer: "We currently have 300+ dancers enrolled at the studio."
+  },
+  {
+    question: "What are the studio's hours of operation?",
+    answer: "Our studio hours vary by day and season. Classes typically run weekday evenings and Saturday mornings. Check dynamicacademy.ca/classes for the current schedule, or call us at (506) 847-1164."
+  },
+  {
+    question: "How many studios/rooms does DATOA have?",
+    answer: "Our facility includes multiple dance studios equipped with sprung floors, mirrors, and barres appropriate for various dance styles."
+  },
+  {
+    question: "Can I volunteer to help at DATOA events like recitals?",
+    answer: "We welcome parent volunteers for our year-end recital and other events. Volunteer opportunities are communicated through email and the D.A.T.A. App as events approach. ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- Instructor Information (6 entries)"
+  },
+  {
     question: "What qualifications do your dance instructors have?",
     answer: "Our faculty train with leading educators and focus on safe, age-appropriate technique and injury prevention. Carina Charest holds a BEd from Université de Moncton and First Aid in Mental Health certification. Vanessa Calhoun is a George Brown Commercial Dance graduate with 10+ years at D.A.T.A. and professional performance experience. Justin Saulnier is a Certified AcroDance Instructor."
   },
   {
     question: "Who are the faculty members?",
     answer: "Justin Saulnier (Owner/Director) — Tap, Jazz, Hip Hop, Contemporary, Ballet, Musical Theatre; Certified AcroDance Instructor. Carina Charest — Ballet, Jazz, Tap, Musical Theatre, Lyrical, Contemporary, Gymnastics, Baton; BEd from Université de Moncton; First Aid in Mental Health. Vanessa Calhoun — RAD syllabus, George Brown Commercial Dance grad, Ballet Jorgen, Royal Caribbean Cruise Line, 10+ years at D.A.T.A. Emily Burton — Contemporary, Jazz, Hip Hop, Lyrical, Acro; teaching since 2018. Full faculty profiles available at dynamicacademy.ca/faculty."
+  },
+  {
+    question: "Can you list the full faculty team with their bios?",
+    answer: "Justin Saulnier (Owner/Director) — Tap, Jazz, Hip Hop, Contemporary, Ballet, Musical Theatre; Certified AcroDance Instructor. Carina Charest — Ballet, Jazz, Tap, Musical Theatre, Lyrical, Contemporary, Gymnastics, Baton; BEd from Université de Moncton; First Aid in Mental Health. Vanessa Calhoun — RAD syllabus, George Brown Commercial Dance grad, Royal Caribbean Cruise Line, 10+ years at D.A.T.A. Emily Burton — Contemporary, Jazz, Hip Hop, Lyrical, Acro; teaching since 2018. Visit dynamicacademy.ca/faculty for full bios."
   },
   {
     question: "Are instructors certified in first aid?",
@@ -317,11 +349,11 @@ const KNOWLEDGE_BASE = [
   },
   {
     question: "I'm 16 and want to teach dance eventually — does DATOA have junior assistant or apprentice instructor positions?",
-    answer: "We love nurturing the next generation of dance educators! While we don't have a formal junior instructor program listed at this time, we encourage you to reach out to the studio directly to discuss any available assistant or apprentice opportunities. Building those relationships early is a great first step toward a teaching career."
+    answer: "We love nurturing the next generation of dance educators! While we don't have a formal junior instructor program listed at this time, we encourage you to reach out to the studio directly to discuss any available assistant or apprentice opportunities. Building those relationships early is a great first step toward a teaching career. ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- Safety & Child Protection (13 entries)"
   },
   {
     question: "How do I know my child is safe? Do your instructors have background checks?",
-    answer: "Yes. All our instructors undergo criminal record checks, and our teaching staff are trained in first aid. We prioritize creating a safe environment for every dancer."
+    answer: "Your child's physical and emotional safety is always our first priority. Our faculty train with leading educators and focus on safe, age-appropriate technique. For specific information about our background check policy for instructors, please contact the studio directly."
   },
   {
     question: "What is the late pickup policy if I'm running late to get my daughter?",
@@ -329,11 +361,11 @@ const KNOWLEDGE_BASE = [
   },
   {
     question: "What happens if my child is injured during class?",
-    answer: "Our instructors are trained in first aid and will respond immediately. For minor injuries, we provide first aid on-site and notify parents. For anything more serious, we contact parents immediately and call emergency services if needed. An incident report is completed for all injuries."
+    answer: "Your child's safety is our first priority. Our faculty are trained in safe technique and injury prevention. In the event of an injury during class, the instructor will assess the situation and contact parents immediately for any matter requiring medical attention."
   },
   {
     question: "Is there a waiver or liability form to sign?",
-    answer: "Yes. All families are required to sign a liability waiver and media release form at the time of registration. These forms are available at the studio or during the registration process."
+    answer: "Yes, all waivers and liability forms are included in our registration forms, which are completed when enrolling your child."
   },
   {
     question: "My child is being bullied in class — what action does the studio take?",
@@ -354,6 +386,22 @@ const KNOWLEDGE_BASE = [
   {
     question: "What is DATOA's supervision policy for younger children?",
     answer: "Our instructors maintain direct supervision during all class times. Parents/guardians are responsible for drop-off and pick-up. Children should not be left unattended in the studio before or after their class time. For our youngest dancers (ages 3–4), we recommend parents remain in the building during class."
+  },
+  {
+    question: "Does DATOA conduct background checks on instructors?",
+    answer: "Yes. All our instructors undergo criminal record checks, and our teaching staff are trained in first aid. We prioritize creating a safe environment for every dancer."
+  },
+  {
+    question: "What happens if my child gets injured during class?",
+    answer: "Our instructors are trained in first aid and will respond immediately. For minor injuries, we provide first aid on-site and notify parents. For anything more serious, we contact parents immediately and call emergency services if needed. An incident report is completed for all injuries."
+  },
+  {
+    question: "Is there a waiver or liability form I need to sign?",
+    answer: "Yes. All families are required to sign a liability waiver and media release form at the time of registration. These forms are available at the studio or during the registration process."
+  },
+  {
+    question: "Are parents allowed to watch classes?",
+    answer: "Parents are welcome to observe during designated observation weeks. For regular classes, we ask that parents use the waiting area to minimize distractions for the dancers. This helps our instructors maintain focus and keeps the classroom environment productive. ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- Complaints & Escalation (9 entries)"
   },
   {
     question: "I am unhappy with an instructor's behavior — how can I escalate this?",
@@ -389,7 +437,7 @@ const KNOWLEDGE_BASE = [
   },
   {
     question: "My child is being treated unfairly by another student. What should I do?",
-    answer: "Please let us know right away by contacting the studio. We have a zero-tolerance policy for bullying and take all reports seriously. We will address the situation with the students and families involved, and work to ensure your child feels safe and supported."
+    answer: "Please let us know right away by contacting the studio. We have a zero-tolerance policy for bullying and take all reports seriously. We will address the situation with the students and families involved, and work to ensure your child feels safe and supported. ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- Recital & Performances (14 entries)"
   },
   {
     question: "Do you have a year-end recital? When is it and is there a cost?",
@@ -445,11 +493,15 @@ const KNOWLEDGE_BASE = [
   },
   {
     question: "The recital costume we received is the wrong size and the recital is in two weeks.",
-    answer: "We are so sorry about this! Please contact us by email right away so we can resolve this as quickly as possible."
+    answer: "We are so sorry about this! Please contact us by email right away so we can resolve this as quickly as possible. ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- Competitive Program (10 entries)"
   },
   {
     question: "Do you offer competitive dance programs? What's involved?",
     answer: "Yes! We offer two competitive tiers: Part-Time (2–3 days/week, 2–3 competitions/year) and Full-Time Competitive Company (intensive training schedule, 4–5 competitions/year including one out-of-province). Both include summer intensives and additional costs for costumes, entry fees, and travel (Full-Time)."
+  },
+  {
+    question: "Does D.A.T.A. have a competitive team?",
+    answer: "Yes! We have Part-Time Competitors (2–3 days/week, 2–3 competitions/year) and a Full-Time Competitive Company (4–5 competitions/year including out-of-province). Auditions for 2026–27 are June 11, 2026. Registration opens May 1."
   },
   {
     question: "What is the time commitment for competitive?",
@@ -481,24 +533,117 @@ const KNOWLEDGE_BASE = [
   },
   {
     question: "Does DATOA have any male dancers on the competitive team or am I gonna be the only guy?",
-    answer: "D.A.T.A. welcomes dancers of all genders into our programs, including the competitive team. We are proud of our inclusive environment. For specific information about current team composition, please contact the studio directly."
+    answer: "D.A.T.A. welcomes dancers of all genders into our programs, including the competitive team. We are proud of our inclusive environment. For specific information about current team composition, please contact the studio directly. ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- Accessibility & Inclusion (5 entries)"
   },
   {
     question: "Is the studio wheelchair accessible?",
-    answer: "Our studio is located in a ground-level commercial space. Please contact us to discuss specific accessibility needs, and we will do our best to accommodate."
+    answer: "Yes, our studio is wheelchair accessible."
   },
   {
     question: "Do you offer adaptive or inclusive programs for children with special needs?",
-    answer: "We are committed to making dance accessible to everyone. While we don't currently have a dedicated adaptive program, we are happy to discuss accommodations for dancers with special needs. Please contact us to talk about how we can support your child."
+    answer: "Yes, we do offer inclusive programs. Please explore our weekly class schedule or contact the studio to discuss the best fit for your child."
   },
   {
     question: "Do you guys do anything for Pride Month or is the studio welcoming to LGBTQ+ dancers?",
     answer: "Absolutely. D.A.T.A. is proud to be a welcoming and inclusive studio for dancers of all backgrounds, identities, and orientations, including LGBTQ+ students and families. We believe dance is for everyone. For specific information about any Pride Month activities or events, please follow us on social media @dynamicacademyofthearts."
   },
   {
+    question: "Does DATOA offer adaptive or inclusive dance programs? (Expanded)",
+    answer: "We are committed to making dance accessible to everyone. While we don't currently have a dedicated adaptive program, we are happy to discuss accommodations for dancers with special needs. Please contact us to talk about how we can support your child."
+  },
+  {
+    question: "Is the studio wheelchair accessible? (Expanded)",
+    answer: "Our studio is located in a ground-level commercial space. Please contact us to discuss specific accessibility needs, and we will do our best to accommodate. ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- Sponsorship & Partnerships (1 entries)"
+  },
+  {
     question: "Does DATOA have a formal sponsorship or community partnership program?",
     answer: "We welcome community partnerships and sponsorship inquiries! While a formal sponsorship program is still being developed, we are open to collaborations that support our students and the broader dance community. Please contact the studio by email to discuss partnership opportunities."
   },
+  // --- Alias / short-form entries for better keyword matching ---
+  {
+    question: "What are your prices?",
+    answer: "Recreational tuition: 30 min = $48.30/mo, 60 min = $61.70/mo, 90 min = $86.40/mo, 2 hrs = $98.75/mo. All prices + HST. Competitive program tuition varies—please contact us at dynamicacademyofthearts@gmail.com or visit dynamicacademy.ca/classes for the most current pricing."
+  },
+  {
+    question: "What is the cost of classes?",
+    answer: "Recreational tuition: 30 min = $48.30/mo, 60 min = $61.70/mo, 90 min = $86.40/mo, 2 hrs = $98.75/mo. All prices + HST. Competitive program tuition varies—please contact us at dynamicacademyofthearts@gmail.com or visit dynamicacademy.ca/classes for the most current pricing."
+  },
+  {
+    question: "How much does dance class cost?",
+    answer: "Recreational tuition: 30 min = $48.30/mo, 60 min = $61.70/mo, 90 min = $86.40/mo, 2 hrs = $98.75/mo. All prices + HST. Competitive program tuition varies—please contact us at dynamicacademyofthearts@gmail.com or visit dynamicacademy.ca/classes for the most current pricing."
+  },
+  {
+    question: "What are your fees?",
+    answer: "Recreational tuition: 30 min = $48.30/mo, 60 min = $61.70/mo, 90 min = $86.40/mo, 2 hrs = $98.75/mo. All prices + HST. Competitive program tuition varies—please contact us at dynamicacademyofthearts@gmail.com or visit dynamicacademy.ca/classes for the most current pricing."
+  },
+  {
+    question: "Do you have pricing details?",
+    answer: "Recreational tuition: 30 min = $48.30/mo, 60 min = $61.70/mo, 90 min = $86.40/mo, 2 hrs = $98.75/mo. All prices + HST. Competitive program tuition varies—please contact us at dynamicacademyofthearts@gmail.com or visit dynamicacademy.ca/classes for the most current pricing."
+  },
+  {
+    question: "Can parents watch classes?",
+    answer: "Parents are welcome to observe during designated observation weeks. For regular classes, we ask that parents use the waiting area to minimize distractions for the dancers. This helps our instructors maintain focus and keeps the classroom environment productive."
+  },
+  {
+    question: "Where are you located?",
+    answer: "6 Market Street, Quispamsis, New Brunswick, E2E 4B1."
+  },
+  {
+    question: "Where are you located",
+    answer: "6 Market Street, Quispamsis, New Brunswick, E2E 4B1."
+  },
+  {
+    question: "Where is your studio?",
+    answer: "6 Market Street, Quispamsis, New Brunswick, E2E 4B1."
+  },
+  {
+    question: "Where is your studio",
+    answer: "6 Market Street, Quispamsis, New Brunswick, E2E 4B1."
+  },
+  {
+    question: "Where is the studio?",
+    answer: "6 Market Street, Quispamsis, New Brunswick, E2E 4B1."
+  },
+  {
+    question: "What is your address?",
+    answer: "6 Market Street, Quispamsis, New Brunswick, E2E 4B1."
+  },
+  {
+    question: "What is your address",
+    answer: "6 Market Street, Quispamsis, New Brunswick, E2E 4B1."
+  },
+  {
+    question: "Location",
+    answer: "6 Market Street, Quispamsis, New Brunswick, E2E 4B1."
+  },
+  {
+    question: "location",
+    answer: "6 Market Street, Quispamsis, New Brunswick, E2E 4B1."
+  },
+  {
+    question: "Studio location",
+    answer: "6 Market Street, Quispamsis, New Brunswick, E2E 4B1."
+  },
+  {
+    question: "studio location",
+    answer: "6 Market Street, Quispamsis, New Brunswick, E2E 4B1."
+  },
+  {
+    question: "Where can I find you?",
+    answer: "6 Market Street, Quispamsis, New Brunswick, E2E 4B1."
+  },
+  {
+    question: "where can i find you",
+    answer: "6 Market Street, Quispamsis, New Brunswick, E2E 4B1."
+  },
 ];
-
+ 
 module.exports = KNOWLEDGE_BASE;
+
+
+
+
+
+
+
+

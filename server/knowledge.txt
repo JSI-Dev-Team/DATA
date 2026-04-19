@@ -29,7 +29,7 @@ Answer 9: Registration typically opens in spring/summer. Check dynamicacademy.ca
 Question 10: Can siblings be registered in the same class?
 Answer 10: Yes, siblings can be registered in the same class if they are the appropriate age for the class they are interested in.
 
---------------------------------------------------------------------------------------------------------------------
+
 Classes & Programs (15 entries)
 
 Question 11: What dance programs and classes do you offer?
@@ -76,9 +76,9 @@ Answer 24: Typically, students are placed in age-appropriate classes. Parent-chi
 
 Question 25: Is there a trial class I can sign my daughter up for before committing?
 Answer 25: Yes! We offer a Free Trial Class. No experience required. Sign up at dynamicacademy.ca/free-trial-class. We'll help you find the right class fit.
-Now you have a clean sequence from Question 1 through 25. Would you like me to compile all of these into a single master FAQ document so it’s neatly organized and ready to share with parents?
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
 
 Pricing & Fees (12 entries)
 
@@ -110,7 +110,7 @@ Answer 36: Competitive Camps run July 13–17 and August 17–21 at $250 + HST p
 Question 37: What is the Summer Elite Technique Program? 
 Answer 37: The Summer Elite Technique Program is a 5-week program for ages 5–18, running Tuesdays and Wednesdays 4:30–6:30 PM at $130 for the full session.
 
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 Billing & Payments (11 entries)
 
 Question 38: What payment methods do you accept? 
@@ -199,7 +199,7 @@ Answer 65: Yes, we have a comfortable waiting area where parents can sit during 
 
 
 
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 
 General Info (17 entries)
@@ -255,7 +255,7 @@ Answer 84: Our facility includes multiple dance studios equipped with sprung flo
 Question 85: Can I volunteer to help at DATOA events like recitals?
  Answer 85: We welcome parent volunteers for our year-end recital and other events. Volunteer opportunities are communicated through email and the D.A.T.A. App as events approach.
 
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 Instructor Information (6 entries)
 
@@ -276,7 +276,7 @@ Question 90: Are instructors at DATOA employees or independent contractors? Answ
 Question 91: I'm 16 and want to teach dance eventually — does DATOA have junior assistant or apprentice instructor positions? 
 Answer 91: We love nurturing the next generation of dance educators! While we don't have a formal junior instructor program listed at this time, we encourage you to reach out to the studio directly to discuss any available assistant or apprentice opportunities. Building those relationships early is a great first step toward a teaching career.
 
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 Safety & Child Protection (13 entries)
 
 Question 92: How do I know my child is safe? Do your instructors have background checks? 
@@ -318,10 +318,10 @@ Answer 104: Parents are welcome to observe during designated observation weeks. 
 
 
 
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Complaints & Escalation (9 entries)
 
-Question 105: I am unhappy with an instructor's behavior — how can I escalate this? Answer 105: We're sorry to hear that. Please contact the studio owner/director Justin Saulnier directly by email or phone. Your concern will be treated with confidentiality and addressed within 2 business days. Depending on the nature of the complaint, a formal meeting may be arranged with all parties involved.
+Question 105: I am unhappy with an instructor's behavior — how can I escalate this? 
+Answer 105: We're sorry to hear that. Please contact the studio owner/director Justin Saulnier directly by email or phone. Your concern will be treated with confidentiality and addressed within 2 business days. Depending on the nature of the complaint, a formal meeting may be arranged with all parties involved.
 
 Question 106: How long does it take to get a response to a complaint? 
 Answer 106: We aim to acknowledge all complaints within 24 business hours and provide a full response or resolution within 2–3 business days. For urgent matters, please call the studio directly.
@@ -346,7 +346,7 @@ Answer 112: While we encourage direct communication so we can best address your 
 Question 113: My child is being treated unfairly by another student. What should I do? Answer 113: Please let us know right away by contacting the studio. We have a zero-tolerance policy for bullying and take all reports seriously. We will address the situation with the students and families involved, and work to ensure your child feels safe and supported.
 
 
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 Recital & Performances (14 entries)
 
 Question 114: Do you have a year-end recital? When is it and is there a cost? 
@@ -391,7 +391,7 @@ Answer 126: Please contact the studio by email as soon as possible so we can res
 Question 127: The recital costume we received is the wrong size and the recital is in two weeks. 
 Answer 127: We are so sorry about this! Please contact us by email right away so we can resolve this as quickly as possible.
 
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 Competitive Program (10 entries)
 
@@ -424,7 +424,7 @@ Question 136: How are solo and duet opportunities assigned — merit or seniorit
 Question 137: Does DATOA have any male dancers on the competitive team or am I gonna be the only guy? 
 Answer 137: D.A.T.A. welcomes dancers of all genders into our programs, including the competitive team. We are proud of our inclusive environment. For specific information about current team composition, please contact the studio directly.
 
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 Accessibility & Inclusion (5 entries)
 
 Question 138: Is the studio wheelchair accessible? 
@@ -441,7 +441,7 @@ Question 141: Does DATOA offer adaptive or inclusive dance programs? (Expanded) 
 Question 142: Is the studio wheelchair accessible? (Expanded) 
 Answer 142: Our studio is located in a ground-level commercial space. Please contact us to discuss specific accessibility needs, and we will do our best to accommodate.
 
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 Sponsorship & Partnerships (1 entries)
 
