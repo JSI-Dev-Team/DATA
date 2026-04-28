@@ -1,7 +1,7 @@
 import { motion } from "motion/react";
 import { Link } from "react-router";
 import Slider from "react-slick";
-import { Star, ChevronRight, CheckCircle2, Apple, Play } from "lucide-react";
+import { Star, ChevronRight, ChevronDown, CheckCircle2, Heart, GraduationCap, UserCheck, Trophy, Play } from "lucide-react";
 import { useState } from "react";
 
 export function Home() {
@@ -49,23 +49,18 @@ export function Home() {
           />
           <div className="absolute inset-0 bg-purple-900/70 mix-blend-multiply" />
           <div className="absolute inset-0 bg-gradient-to-t from-purple-900/90 via-purple-900/40 to-transparent" />
+          <div className="absolute inset-0 bg-grain opacity-[0.05] pointer-events-none select-none" />
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 mb-8">
-              <Star className="w-4 h-4 text-orange-400" />
-              <span className="text-sm font-medium tracking-wide">Established 2013 • Quispamsis, NB</span>
-            </div>
-
-            <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-6 leading-tight">
-              Where Every Dancer <br />
-              <span className="text-orange-400">Finds Their Spotlight</span>
+            <h1 className="text-5xl sm:text-6xl md:text-7xl font-extrabold tracking-tight mb-6 leading-tight">
+              Classical Precision. <br />
+              Contemporary <span className="text-[#ff8904]">Fire</span>.
             </h1>
 
             <p className="max-w-2xl mx-auto text-lg md:text-xl text-purple-100 mb-10 leading-relaxed">
-              Welcome to D.A.T.A - a vibrant community where passion meets technique. We nurture your child&apos;s love for dance with
-              industry-trained instructors, personalized attention, and a family-like atmosphere.
+              Quispamsis + Saint John, 12 years, 300+ dancers, 4.8★
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
@@ -73,39 +68,72 @@ export function Home() {
                 to="/contact"
                 className="w-full sm:w-auto bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 rounded-md font-bold text-lg transition-all shadow-lg shadow-orange-500/30 flex items-center justify-center gap-2 group"
               >
-                Start Your Free Trial
+                Book a Free Trial
                 <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Link>
               <Link
-                to="/about"
+                to="/classes"
                 className="w-full sm:w-auto bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/30 text-white px-8 py-4 rounded-md font-bold text-lg transition-all flex items-center justify-center"
               >
-                Learn More About Us
+                Explore Programs
               </Link>
-            </div>
-
-            <div className="grid grid-cols-3 gap-4 md:gap-12 max-w-3xl mx-auto border-t border-white/20 pt-8">
-              <div>
-                <div className="text-3xl md:text-4xl font-bold text-orange-400 mb-1">300+</div>
-                <div className="text-sm text-purple-200">Happy Dancers</div>
-              </div>
-              <div>
-                <div className="text-3xl md:text-4xl font-bold text-orange-400 mb-1">12+</div>
-                <div className="text-sm text-purple-200">Years Excellence</div>
-              </div>
-              <div>
-                <div className="text-3xl md:text-4xl font-bold text-orange-400 mb-1 flex items-center justify-center gap-1">
-                  4.8
-                  <Star className="w-6 h-6 fill-current text-orange-400" />
-                </div>
-                <div className="text-sm text-purple-200">Google Rating</div>
-              </div>
             </div>
           </motion.div>
         </div>
+
+        <motion.a
+          href="#page-content"
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 text-white/50 hover:text-white/80 transition-colors duration-300"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.2, duration: 0.8 }}
+          aria-label="Scroll to content"
+        >
+          <motion.div
+            animate={{ y: [0, 7, 0] }}
+            transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
+          >
+            <ChevronDown className="w-6 h-6" />
+          </motion.div>
+        </motion.a>
       </section>
 
-      <section className="py-24 bg-gradient-to-b from-blue-50 to-white relative overflow-hidden">
+      <section aria-label="Recital announcement" className="py-10 sm:py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-r from-purple-950/95 via-purple-900/85 to-purple-950/95 shadow-2xl shadow-purple-950/30">
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,_rgba(139,92,246,0.30)_0%,_transparent_55%)]" />
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_85%_65%,_rgba(255,137,4,0.18)_0%,_transparent_60%)]" />
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-14 bg-gradient-to-b from-transparent to-purple-950/70" />
+
+            <div className="relative flex flex-col gap-6 px-6 py-8 sm:px-8 sm:py-10 md:flex-row md:items-center md:justify-between">
+              <div className="flex items-center gap-5">
+                <div className="shrink-0 rounded-xl bg-white/10 border border-white/15 px-5 py-4">
+                  <div className="text-orange-400 font-extrabold tracking-tight text-3xl leading-none">Recital</div>
+                  <div className="text-purple-100/90 font-extrabold tracking-tight text-3xl leading-none">2026</div>
+                </div>
+
+                <div className="min-w-0">
+                  <div className="text-white font-bold text-xl sm:text-2xl tracking-tight">
+                    Recital 2026 — <span className="text-[#ff8904]">Coming this June</span>
+                  </div>
+                  <div className="mt-1 text-purple-100/85 text-sm sm:text-base leading-relaxed">
+                    Watch for dates, tickets, and costume details in the parent portal and the DATA App.
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex items-center justify-start md:justify-end">
+                <div className="inline-flex items-center gap-2 rounded-full bg-white/10 border border-white/15 px-4 py-2 text-sm font-semibold text-white">
+                  Announcement
+                  <span className="inline-block h-2 w-2 rounded-full bg-[#ff8904]" aria-hidden />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="page-content" className="py-24 bg-gradient-to-b from-purple-50/90 via-white to-orange-50/40 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-16">
             <span className="text-purple-600 font-bold tracking-wider uppercase text-sm mb-4 block bg-purple-100 inline-block px-4 py-1 rounded-full">
@@ -122,26 +150,26 @@ export function Home() {
               {
                 title: "Family-Like Community",
                 desc: "Join a welcoming environment where every student feels valued, supported, and at home.",
-                icon: "bg-purple-500",
-                iconColor: "text-white",
+                bg: "bg-purple-500",
+                Icon: Heart,
               },
               {
                 title: "Industry-Trained Faculty",
                 desc: "Learn from instructors with extensive experience, trained by sought-after professionals.",
-                icon: "bg-orange-500",
-                iconColor: "text-white",
+                bg: "bg-orange-500",
+                Icon: GraduationCap,
               },
               {
                 title: "Personalized Attention",
                 desc: "Individual growth focus ensures each student receives tailored instruction and improves yearly.",
-                icon: "bg-red-500",
-                iconColor: "text-white",
+                bg: "bg-red-500",
+                Icon: UserCheck,
               },
               {
                 title: "Builds Life Skills",
                 desc: "Dance teaches discipline, attention to detail, and work ethic - valuable in any career path.",
-                icon: "bg-violet-500",
-                iconColor: "text-white",
+                bg: "bg-violet-500",
+                Icon: Trophy,
               },
             ].map((feature, i) => (
               <motion.div
@@ -153,9 +181,9 @@ export function Home() {
                 className="bg-white p-8 rounded-2xl shadow-xl shadow-slate-200/50 border border-slate-100 text-center hover:-translate-y-2 transition-transform duration-300"
               >
                 <div
-                  className={`w-14 h-14 ${feature.icon} rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg shadow-current/30 rotate-3`}
+                  className={`w-14 h-14 ${feature.bg} rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg shadow-current/30 rotate-3`}
                 >
-                  <CheckCircle2 className={`w-7 h-7 ${feature.iconColor}`} />
+                  <feature.Icon className="w-7 h-7 text-white" />
                 </div>
                 <h3 className="text-xl font-bold text-slate-900 mb-3">{feature.title}</h3>
                 <p className="text-slate-700 leading-relaxed text-[15px]">{feature.desc}</p>
@@ -454,19 +482,24 @@ export function Home() {
         </div>
       </section>
 
-      <section className="py-24 bg-white overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-24 bg-gradient-to-br from-purple-950 via-slate-900 to-slate-950 relative overflow-hidden">
+        <div className="pointer-events-none absolute -top-20 left-1/4 w-[500px] h-[500px] rounded-full bg-purple-600/15 blur-3xl" />
+        <div className="pointer-events-none absolute -bottom-20 right-1/3 w-[400px] h-[400px] rounded-full bg-orange-500/10 blur-3xl" />
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="flex flex-col lg:flex-row items-center gap-16">
             <div className="flex-1 space-y-8">
-              <span className="text-purple-600 font-bold tracking-wider uppercase text-sm bg-purple-100 inline-block px-4 py-1 rounded-full">
+              <span className="text-orange-400 font-bold tracking-wider uppercase text-sm bg-orange-400/10 border border-orange-400/20 inline-block px-4 py-1 rounded-full">
                 Stay Connected
               </span>
-              <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 leading-tight">Everything You Need in One App</h2>
-              <p className="text-lg text-slate-700 leading-relaxed">
-                Download the <strong className="text-slate-900">D.A.T.A Studio App</strong> for seamless access to:
+              <h2 className="text-4xl md:text-5xl font-extrabold text-white leading-tight">
+                Everything You Need<br />in One App
+              </h2>
+              <p className="text-lg text-slate-300 leading-relaxed">
+                Download the <strong className="text-white">D.A.T.A Studio App</strong> for seamless access to all things DATA — right from your pocket.
               </p>
 
-              <ul className="space-y-4">
+              <ul className="space-y-3">
                 {[
                   "Register for classes instantly",
                   "Receive studio updates & notifications",
@@ -475,44 +508,115 @@ export function Home() {
                   "View events calendar",
                   "Make secure payments",
                 ].map((item) => (
-                  <li key={item} className="flex items-center gap-3 text-slate-700">
-                    <CheckCircle2 className="w-5 h-5 text-purple-600 shrink-0" />
+                  <li key={item} className="flex items-center gap-3 text-slate-200">
+                    <CheckCircle2 className="w-5 h-5 text-purple-400 shrink-0" />
                     <span>{item}</span>
                   </li>
                 ))}
               </ul>
 
-              <div className="flex flex-wrap gap-4 pt-4">
-                <button
-                  type="button"
-                  className="bg-black text-white px-6 py-3 rounded-xl flex items-center gap-3 hover:bg-slate-800 transition-colors"
+              <div className="flex flex-wrap gap-4 pt-2">
+                <a
+                  href="https://apps.apple.com/us/app/dynamic-academy-of-the-arts/id6746337745"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-3.5 bg-white text-slate-900 px-5 py-3.5 rounded-2xl hover:bg-slate-50 active:scale-95 transition-all shadow-xl shadow-black/30"
                 >
-                  <Apple className="w-6 h-6 fill-current" />
+                  <svg viewBox="0 0 24 24" className="w-7 h-7 fill-slate-900 shrink-0">
+                    <path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701" />
+                  </svg>
                   <div className="text-left">
-                    <div className="text-[10px] leading-none text-slate-300">Download on the</div>
-                    <div className="text-sm font-bold">App Store</div>
+                    <div className="text-[10px] leading-tight text-slate-500 tracking-wide">Download on the</div>
+                    <div className="text-[17px] font-bold leading-tight tracking-tight">App Store</div>
                   </div>
-                </button>
-                <button
-                  type="button"
-                  className="bg-black text-white px-6 py-3 rounded-xl flex items-center gap-3 hover:bg-slate-800 transition-colors"
+                </a>
+                <a
+                  href="https://play.google.com/store/apps/details?id=com.dynamicacademyofthearts.mi"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-3.5 bg-white text-slate-900 px-5 py-3.5 rounded-2xl hover:bg-slate-50 active:scale-95 transition-all shadow-xl shadow-black/30"
                 >
-                  <Play className="w-6 h-6 fill-current" />
+                  <svg viewBox="0 0 24 24" className="w-7 h-7 shrink-0" fill="none">
+                    <path d="M3.5 21.5V2.5L21 12L3.5 21.5Z" fill="url(#gpHome)" />
+                    <defs>
+                      <linearGradient id="gpHome" x1="3.5" y1="2.5" x2="3.5" y2="21.5" gradientUnits="userSpaceOnUse">
+                        <stop offset="0" stopColor="#4285F4" />
+                        <stop offset="0.4" stopColor="#EA4335" />
+                        <stop offset="0.7" stopColor="#FBBC04" />
+                        <stop offset="1" stopColor="#34A853" />
+                      </linearGradient>
+                    </defs>
+                  </svg>
                   <div className="text-left">
-                    <div className="text-[10px] leading-none text-slate-300">GET IT ON</div>
-                    <div className="text-sm font-bold">Google Play</div>
+                    <div className="text-[10px] leading-tight text-slate-500 tracking-wide uppercase">Get it on</div>
+                    <div className="text-[17px] font-bold leading-tight tracking-tight">Google Play</div>
                   </div>
-                </button>
+                </a>
+              </div>
+
+              <div className="flex items-center gap-3 pt-1">
+                <div className="flex text-orange-400">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="w-4 h-4 fill-current" />
+                  ))}
+                </div>
+                <span className="text-slate-400 text-sm">4.8 stars · Loved by 300+ DATA families</span>
               </div>
             </div>
 
-            <div className="flex-1 relative w-full max-w-lg mx-auto">
-              <div className="absolute inset-0 bg-purple-200 rounded-full blur-3xl opacity-30 transform scale-90 translate-x-10 translate-y-10" />
-              <img
-                src="https://images.unsplash.com/photo-1730818028738-21c19c7103fb?w=800&q=80"
-                alt="App screenshot"
-                className="w-full h-auto rounded-3xl shadow-2xl relative z-10 border-8 border-slate-900"
-              />
+            <div className="flex-1 relative w-full max-w-sm mx-auto py-10">
+              <div className="pointer-events-none absolute inset-8 bg-purple-600/25 rounded-full blur-3xl" />
+              <motion.div
+                animate={{ y: [0, -10, 0] }}
+                transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
+                className="relative z-10 mx-auto w-64 sm:w-72"
+              >
+                <div className="relative rounded-[2.5rem] bg-slate-950 border-[5px] border-slate-700/80 shadow-2xl overflow-hidden aspect-[9/19]">
+                  <img
+                    src="https://images.unsplash.com/photo-1730818028738-21c19c7103fb?w=800&q=80"
+                    alt="DATA Studio App interface"
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-purple-950/70 via-transparent to-transparent" />
+                  <div className="absolute bottom-6 left-0 right-0 text-center px-4">
+                    <div className="text-white font-bold text-sm">D.A.T.A Studio</div>
+                    <div className="text-purple-200 text-xs">Your dance life, simplified</div>
+                  </div>
+                </div>
+                <div className="absolute top-[7px] left-1/2 -translate-x-1/2 w-20 h-4 bg-slate-700/80 rounded-full z-20" />
+              </motion.div>
+
+              <motion.div
+                animate={{ y: [0, -8, 0] }}
+                transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
+                className="absolute top-6 -right-2 sm:-right-8 bg-white rounded-2xl px-3 py-2.5 shadow-2xl z-20"
+              >
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 bg-purple-600 rounded-xl flex items-center justify-center shrink-0">
+                    <CheckCircle2 className="w-4 h-4 text-white" />
+                  </div>
+                  <div>
+                    <div className="text-[11px] font-bold text-slate-900 leading-tight">Class Registered!</div>
+                    <div className="text-[10px] text-slate-500">Ballet · Mon 4:30 pm</div>
+                  </div>
+                </div>
+              </motion.div>
+
+              <motion.div
+                animate={{ y: [0, 8, 0] }}
+                transition={{ repeat: Infinity, duration: 3.5, ease: "easeInOut", delay: 0.6 }}
+                className="absolute bottom-6 -left-2 sm:-left-8 bg-white rounded-2xl px-3 py-2.5 shadow-2xl z-20"
+              >
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 bg-orange-500 rounded-xl flex items-center justify-center shrink-0">
+                    <Star className="w-4 h-4 text-white fill-current" />
+                  </div>
+                  <div>
+                    <div className="text-[11px] font-bold text-slate-900 leading-tight">4.8 ★ Rating</div>
+                    <div className="text-[10px] text-slate-500">App Store & Play</div>
+                  </div>
+                </div>
+              </motion.div>
             </div>
           </div>
         </div>

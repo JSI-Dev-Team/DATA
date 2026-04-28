@@ -4,3 +4,22 @@ dist/
 *.local
 .env
 .env.*
+
+# IDE / agent artifacts
+.cursor/
+.vscode/
+.idea/
+debug-*.log
+
+# Local working assets (not part of the codebase)
+/Apple store logo.*
+/ChatGPT Image *.png
+/DATA logo.webp
+/DATA_logo.png
+/DATOA_Chatbot_Deployment_Package.pdf
+/Download-on-the-App-Store.zip
+/GetItOnGooglePlay_Badge_Web_color_English.*
+/content_faq.docx.pdf
+/dance-academy-blueprint.docx
+/dynamic-academy-site/Footer Section NAV.jpg
+/dynamic-academy-site/Our Story.txt
