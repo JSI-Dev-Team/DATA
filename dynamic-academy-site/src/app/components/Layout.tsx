@@ -29,7 +29,7 @@ export function Layout() {
                 className="flex items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 focus-visible:ring-offset-purple-950 rounded-sm"
               >
                 <img
-                  src="/DATA_logo.png"
+                  src="/DATA_logo_White.png"
                   alt="Dynamic Academy of the Arts — DATA"
                   className="h-[4.875rem] w-[400px] max-h-[4.875rem] max-w-[min(400px,85vw)] object-contain object-left drop-shadow-sm"
                   width={400}

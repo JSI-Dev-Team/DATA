@@ -1,7 +1,7 @@
 import { motion } from "motion/react";
 import { Link } from "react-router";
 import Slider from "react-slick";
-import { Star, ChevronRight, ChevronDown, CheckCircle2, Heart, GraduationCap, UserCheck, Trophy, Play } from "lucide-react";
+import { Star, ChevronRight, ChevronDown, Heart, GraduationCap, UserCheck, Trophy, Play } from "lucide-react";
 import { useState } from "react";
 
 export function Home() {
@@ -129,6 +129,127 @@ export function Home() {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-24 bg-slate-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <span className="text-purple-600 font-bold tracking-wider uppercase text-sm bg-purple-100 inline-block px-4 py-1 rounded-full mb-4">
+              Our Programs
+            </span>
+            <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-6">Find Your Perfect Dance Style</h2>
+            <p className="text-xl text-slate-700 max-w-3xl mx-auto leading-relaxed">
+              From classical ballet to energetic hip hop, we offer diverse classes for ages 3-18. Each class builds technique, confidence, and joy.
+            </p>
+          </div>
+
+          <div className="mb-16 rounded-3xl overflow-hidden relative shadow-2xl group">
+            <img
+              src="https://images.unsplash.com/photo-1765795023687-7b2ebc93bae1?w=1200&q=80"
+              alt="Friendships Bloom"
+              className="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-700"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-purple-900/90 via-purple-900/40 to-transparent" />
+            <div className="absolute bottom-0 left-0 p-10 text-white">
+              <h3 className="text-3xl md:text-4xl font-bold mb-2">Where Friendships Bloom</h3>
+              <p className="text-lg text-purple-100">Our youngest dancers build confidence, skills, and lasting friendships</p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              {
+                title: "Ballet",
+                age: "3-18 years",
+                desc: "Classical technique and grace for ages 3+",
+                color: "bg-purple-500",
+                image: "https://images.unsplash.com/photo-1758670331632-47c8bc00f705?w=800&q=80",
+              },
+              {
+                title: "Tap",
+                age: "3-18 years",
+                desc: "Rhythm, musicality, and timing",
+                color: "bg-orange-500",
+                image: "https://images.unsplash.com/photo-1643758344142-7933a8c07796?w=800&q=80",
+              },
+              {
+                title: "Jazz",
+                age: "5-18 years",
+                desc: "High-energy, expressive movement",
+                color: "bg-pink-500",
+                image: "https://images.unsplash.com/photo-1765278543368-6e89f3e080bf?w=800&q=80",
+              },
+              {
+                title: "Lyrical",
+                age: "7-18 years",
+                desc: "Emotional storytelling through dance",
+                color: "bg-indigo-500",
+                image: "https://images.unsplash.com/photo-1598981553068-135d56f26e6f?w=800&q=80",
+              },
+              {
+                title: "Hip Hop",
+                age: "5-18 years",
+                desc: "Urban styles and freestyle expression",
+                color: "bg-blue-500",
+                image: "https://images.unsplash.com/photo-1621976360623-004223992275?w=800&q=80",
+              },
+              {
+                title: "Acro",
+                age: "6+ years",
+                desc: "Acrobatics, flexibility, and strength",
+                color: "bg-red-500",
+                image: "https://images.unsplash.com/photo-1762271232481-30bd8d3342fa?w=800&q=80",
+              },
+            ].map((cls) => (
+              <div
+                key={cls.title}
+                className="bg-white rounded-xl shadow-md border border-slate-100 overflow-hidden hover:shadow-xl transition-shadow group relative flex flex-col pt-2"
+              >
+                <div className={`absolute top-0 left-0 right-0 h-2 ${cls.color} z-20`} />
+                <div className="h-48 overflow-hidden relative w-full">
+                  <img
+                    src={cls.image}
+                    alt={cls.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent" />
+                  <div className="absolute bottom-4 left-6">
+                    <h4 className="text-2xl font-bold text-white">{cls.title}</h4>
+                  </div>
+                </div>
+                <div className="p-6 flex-1 flex flex-col">
+                  <div className="inline-block px-3 py-1 bg-slate-100 text-slate-700 text-xs font-semibold rounded-md mb-4 border border-slate-200 self-start">
+                    {cls.age}
+                  </div>
+                  <p className="text-slate-700 mb-8 flex-1 leading-relaxed text-[15px]">{cls.desc}</p>
+                  <Link
+                    to="/classes"
+                    className="text-purple-600 font-bold text-sm inline-flex items-center gap-1 group-hover:text-purple-800 transition-colors"
+                  >
+                    Try Free Class <ChevronRight className="w-4 h-4" />
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-16 text-center space-y-6">
+            <h4 className="text-2xl font-bold text-slate-900">Classes Available for All Ages</h4>
+            <div className="flex flex-wrap justify-center gap-3">
+              {["3-4 years (Creative Movement)", "5-6 years", "7-8 years", "9-10 years", "11-18 years"].map((age) => (
+                <span key={age} className="px-4 py-2 bg-white border border-purple-200 text-purple-700 rounded-md text-sm font-medium">
+                  {age}
+                </span>
+              ))}
+            </div>
+            <Link
+              to="/classes"
+              className="inline-flex items-center gap-2 border-2 border-purple-600 text-purple-700 px-6 py-3 rounded-md font-bold hover:bg-purple-50 transition-colors"
+            >
+              <Play className="w-4 h-4" /> View Full Class Schedule
+            </Link>
           </div>
         </div>
       </section>
@@ -261,127 +382,6 @@ export function Home() {
         </div>
       </section>
 
-      <section className="py-24 bg-slate-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <span className="text-purple-600 font-bold tracking-wider uppercase text-sm bg-purple-100 inline-block px-4 py-1 rounded-full mb-4">
-              Our Programs
-            </span>
-            <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-6">Find Your Perfect Dance Style</h2>
-            <p className="text-xl text-slate-700 max-w-3xl mx-auto leading-relaxed">
-              From classical ballet to energetic hip hop, we offer diverse classes for ages 3-18. Each class builds technique, confidence, and joy.
-            </p>
-          </div>
-
-          <div className="mb-16 rounded-3xl overflow-hidden relative shadow-2xl group">
-            <img
-              src="https://images.unsplash.com/photo-1765795023687-7b2ebc93bae1?w=1200&q=80"
-              alt="Friendships Bloom"
-              className="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-700"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-purple-900/90 via-purple-900/40 to-transparent" />
-            <div className="absolute bottom-0 left-0 p-10 text-white">
-              <h3 className="text-3xl md:text-4xl font-bold mb-2">Where Friendships Bloom</h3>
-              <p className="text-lg text-purple-100">Our youngest dancers build confidence, skills, and lasting friendships</p>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              {
-                title: "Ballet",
-                age: "3-18 years",
-                desc: "Classical technique and grace for ages 3+",
-                color: "bg-purple-500",
-                image: "https://images.unsplash.com/photo-1758670331632-47c8bc00f705?w=800&q=80",
-              },
-              {
-                title: "Tap",
-                age: "3-18 years",
-                desc: "Rhythm, musicality, and timing",
-                color: "bg-orange-500",
-                image: "https://images.unsplash.com/photo-1643758344142-7933a8c07796?w=800&q=80",
-              },
-              {
-                title: "Jazz",
-                age: "5-18 years",
-                desc: "High-energy, expressive movement",
-                color: "bg-pink-500",
-                image: "https://images.unsplash.com/photo-1765278543368-6e89f3e080bf?w=800&q=80",
-              },
-              {
-                title: "Lyrical",
-                age: "7-18 years",
-                desc: "Emotional storytelling through dance",
-                color: "bg-indigo-500",
-                image: "https://images.unsplash.com/photo-1598981553068-135d56f26e6f?w=800&q=80",
-              },
-              {
-                title: "Hip Hop",
-                age: "5-18 years",
-                desc: "Urban styles and freestyle expression",
-                color: "bg-blue-500",
-                image: "https://images.unsplash.com/photo-1621976360623-004223992275?w=800&q=80",
-              },
-              {
-                title: "Acro",
-                age: "6+ years",
-                desc: "Acrobatics, flexibility, and strength",
-                color: "bg-red-500",
-                image: "https://images.unsplash.com/photo-1762271232481-30bd8d3342fa?w=800&q=80",
-              },
-            ].map((cls) => (
-              <div
-                key={cls.title}
-                className="bg-white rounded-xl shadow-md border border-slate-100 overflow-hidden hover:shadow-xl transition-shadow group relative flex flex-col pt-2"
-              >
-                <div className={`absolute top-0 left-0 right-0 h-2 ${cls.color} z-20`} />
-                <div className="h-48 overflow-hidden relative w-full">
-                  <img
-                    src={cls.image}
-                    alt={cls.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent" />
-                  <div className="absolute bottom-4 left-6">
-                    <h4 className="text-2xl font-bold text-white">{cls.title}</h4>
-                  </div>
-                </div>
-                <div className="p-6 flex-1 flex flex-col">
-                  <div className="inline-block px-3 py-1 bg-slate-100 text-slate-700 text-xs font-semibold rounded-md mb-4 border border-slate-200 self-start">
-                    {cls.age}
-                  </div>
-                  <p className="text-slate-700 mb-8 flex-1 leading-relaxed text-[15px]">{cls.desc}</p>
-                  <Link
-                    to="/classes"
-                    className="text-purple-600 font-bold text-sm inline-flex items-center gap-1 group-hover:text-purple-800 transition-colors"
-                  >
-                    Try Free Class <ChevronRight className="w-4 h-4" />
-                  </Link>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-16 text-center space-y-6">
-            <h4 className="text-2xl font-bold text-slate-900">Classes Available for All Ages</h4>
-            <div className="flex flex-wrap justify-center gap-3">
-              {["3-4 years (Creative Movement)", "5-6 years", "7-8 years", "9-10 years", "11-18 years"].map((age) => (
-                <span key={age} className="px-4 py-2 bg-white border border-purple-200 text-purple-700 rounded-md text-sm font-medium">
-                  {age}
-                </span>
-              ))}
-            </div>
-            <Link
-              to="/classes"
-              className="inline-flex items-center gap-2 border-2 border-purple-600 text-purple-700 px-6 py-3 rounded-md font-bold hover:bg-purple-50 transition-colors"
-            >
-              <Play className="w-4 h-4" /> View Full Class Schedule
-            </Link>
-          </div>
-        </div>
-      </section>
-
       <section className="py-24 relative overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
@@ -478,146 +478,6 @@ export function Home() {
             >
               Read All 12 Reviews on Google
             </button>
-          </div>
-        </div>
-      </section>
-
-      <section className="py-24 bg-gradient-to-br from-purple-950 via-slate-900 to-slate-950 relative overflow-hidden">
-        <div className="pointer-events-none absolute -top-20 left-1/4 w-[500px] h-[500px] rounded-full bg-purple-600/15 blur-3xl" />
-        <div className="pointer-events-none absolute -bottom-20 right-1/3 w-[400px] h-[400px] rounded-full bg-orange-500/10 blur-3xl" />
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="flex flex-col lg:flex-row items-center gap-16">
-            <div className="flex-1 space-y-8">
-              <span className="text-orange-400 font-bold tracking-wider uppercase text-sm bg-orange-400/10 border border-orange-400/20 inline-block px-4 py-1 rounded-full">
-                Stay Connected
-              </span>
-              <h2 className="text-4xl md:text-5xl font-extrabold text-white leading-tight">
-                Everything You Need<br />in One App
-              </h2>
-              <p className="text-lg text-slate-300 leading-relaxed">
-                Download the <strong className="text-white">D.A.T.A Studio App</strong> for seamless access to all things DATA — right from your pocket.
-              </p>
-
-              <ul className="space-y-3">
-                {[
-                  "Register for classes instantly",
-                  "Receive studio updates & notifications",
-                  "Watch class and rehearsal videos",
-                  "Purchase recital tickets",
-                  "View events calendar",
-                  "Make secure payments",
-                ].map((item) => (
-                  <li key={item} className="flex items-center gap-3 text-slate-200">
-                    <CheckCircle2 className="w-5 h-5 text-purple-400 shrink-0" />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-
-              <div className="flex flex-wrap gap-4 pt-2">
-                <a
-                  href="https://apps.apple.com/us/app/dynamic-academy-of-the-arts/id6746337745"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center gap-3.5 bg-white text-slate-900 px-5 py-3.5 rounded-2xl hover:bg-slate-50 active:scale-95 transition-all shadow-xl shadow-black/30"
-                >
-                  <svg viewBox="0 0 24 24" className="w-7 h-7 fill-slate-900 shrink-0">
-                    <path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701" />
-                  </svg>
-                  <div className="text-left">
-                    <div className="text-[10px] leading-tight text-slate-500 tracking-wide">Download on the</div>
-                    <div className="text-[17px] font-bold leading-tight tracking-tight">App Store</div>
-                  </div>
-                </a>
-                <a
-                  href="https://play.google.com/store/apps/details?id=com.dynamicacademyofthearts.mi"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center gap-3.5 bg-white text-slate-900 px-5 py-3.5 rounded-2xl hover:bg-slate-50 active:scale-95 transition-all shadow-xl shadow-black/30"
-                >
-                  <svg viewBox="0 0 24 24" className="w-7 h-7 shrink-0" fill="none">
-                    <path d="M3.5 21.5V2.5L21 12L3.5 21.5Z" fill="url(#gpHome)" />
-                    <defs>
-                      <linearGradient id="gpHome" x1="3.5" y1="2.5" x2="3.5" y2="21.5" gradientUnits="userSpaceOnUse">
-                        <stop offset="0" stopColor="#4285F4" />
-                        <stop offset="0.4" stopColor="#EA4335" />
-                        <stop offset="0.7" stopColor="#FBBC04" />
-                        <stop offset="1" stopColor="#34A853" />
-                      </linearGradient>
-                    </defs>
-                  </svg>
-                  <div className="text-left">
-                    <div className="text-[10px] leading-tight text-slate-500 tracking-wide uppercase">Get it on</div>
-                    <div className="text-[17px] font-bold leading-tight tracking-tight">Google Play</div>
-                  </div>
-                </a>
-              </div>
-
-              <div className="flex items-center gap-3 pt-1">
-                <div className="flex text-orange-400">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-current" />
-                  ))}
-                </div>
-                <span className="text-slate-400 text-sm">4.8 stars · Loved by 300+ DATA families</span>
-              </div>
-            </div>
-
-            <div className="flex-1 relative w-full max-w-sm mx-auto py-10">
-              <div className="pointer-events-none absolute inset-8 bg-purple-600/25 rounded-full blur-3xl" />
-              <motion.div
-                animate={{ y: [0, -10, 0] }}
-                transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
-                className="relative z-10 mx-auto w-64 sm:w-72"
-              >
-                <div className="relative rounded-[2.5rem] bg-slate-950 border-[5px] border-slate-700/80 shadow-2xl overflow-hidden aspect-[9/19]">
-                  <img
-                    src="https://images.unsplash.com/photo-1730818028738-21c19c7103fb?w=800&q=80"
-                    alt="DATA Studio App interface"
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-purple-950/70 via-transparent to-transparent" />
-                  <div className="absolute bottom-6 left-0 right-0 text-center px-4">
-                    <div className="text-white font-bold text-sm">D.A.T.A Studio</div>
-                    <div className="text-purple-200 text-xs">Your dance life, simplified</div>
-                  </div>
-                </div>
-                <div className="absolute top-[7px] left-1/2 -translate-x-1/2 w-20 h-4 bg-slate-700/80 rounded-full z-20" />
-              </motion.div>
-
-              <motion.div
-                animate={{ y: [0, -8, 0] }}
-                transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
-                className="absolute top-6 -right-2 sm:-right-8 bg-white rounded-2xl px-3 py-2.5 shadow-2xl z-20"
-              >
-                <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 bg-purple-600 rounded-xl flex items-center justify-center shrink-0">
-                    <CheckCircle2 className="w-4 h-4 text-white" />
-                  </div>
-                  <div>
-                    <div className="text-[11px] font-bold text-slate-900 leading-tight">Class Registered!</div>
-                    <div className="text-[10px] text-slate-500">Ballet · Mon 4:30 pm</div>
-                  </div>
-                </div>
-              </motion.div>
-
-              <motion.div
-                animate={{ y: [0, 8, 0] }}
-                transition={{ repeat: Infinity, duration: 3.5, ease: "easeInOut", delay: 0.6 }}
-                className="absolute bottom-6 -left-2 sm:-left-8 bg-white rounded-2xl px-3 py-2.5 shadow-2xl z-20"
-              >
-                <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 bg-orange-500 rounded-xl flex items-center justify-center shrink-0">
-                    <Star className="w-4 h-4 text-white fill-current" />
-                  </div>
-                  <div>
-                    <div className="text-[11px] font-bold text-slate-900 leading-tight">4.8 ★ Rating</div>
-                    <div className="text-[10px] text-slate-500">App Store & Play</div>
-                  </div>
-                </div>
-              </motion.div>
-            </div>
           </div>
         </div>
       </section>

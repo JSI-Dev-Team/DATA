@@ -4,6 +4,7 @@ dist/
 *.local
 .env
 .env.*
+!.env.example
 
 # IDE / agent artifacts
 .cursor/
@@ -23,3 +24,10 @@ debug-*.log
 /dance-academy-blueprint.docx
 /dynamic-academy-site/Footer Section NAV.jpg
 /dynamic-academy-site/Our Story.txt
+
+# Local build artifacts / exploration outputs
+dynamic-academy-site/.graphify_python
+dynamic-academy-site/graphify-out/
+
+# Local QA artifacts
+dynamic-academy-site/test_screenshots/

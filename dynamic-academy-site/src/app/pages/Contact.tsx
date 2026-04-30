@@ -18,6 +18,7 @@ import {
   User,
   MessageSquare,
   Smartphone,
+  AlertCircle,
 } from "lucide-react";
 
 // ─── Constants ─────────────────────────────────────────────────────────────────
@@ -26,6 +27,9 @@ const JACKRABBIT_PORTAL = "https://app.jackrabbitclass.com/jr3.0/ParentPortal/Lo
 const JACKRABBIT_ENROLL = "https://app.jackrabbitclass.com/jr3.0/Enroll/EnrollmentList?orgID=532199";
 const APP_STORE_URL = "https://apps.apple.com/us/app/dynamic-academy-of-the-arts/id6746337745";
 const GOOGLE_PLAY_URL = "https://play.google.com/store/apps/details?id=com.dynamicacademyofthearts.mi";
+
+const TRIAL_FORM_ENDPOINT = "https://api.web3forms.com/submit";
+const TRIAL_FORM_RECIPIENT = "dynamicacademyofthearts@gmail.com";
 
 const SOCIAL_LINKS = [
   { label: "Instagram", href: "https://www.instagram.com/dynamicacademyofthearts", Icon: Instagram, color: "hover:bg-pink-600" },
@@ -131,8 +135,12 @@ function SelectField({
 export function Contact() {
   const [activeLocation, setActiveLocation] = useState("quispamsis");
   const [form, setForm] = useState<FormState>(EMPTY_FORM);
+  const [honeypot, setHoneypot] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+
+  const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
 
   const loc = LOCATIONS.find((l) => l.id === activeLocation)!;
 
@@ -149,30 +157,79 @@ export function Contact() {
     setForm((prev) => ({ ...prev, [field]: value }));
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+
+    // Bot caught by honeypot — silently "succeed" so the bot doesn't retry,
+    // but never call the email API.
+    if (honeypot.trim().length > 0) {
+      setSubmitted(true);
+      return;
+    }
+
+    if (!accessKey) {
+      setSubmitError(
+        "The booking form is not yet configured. Please email dynamicacademyofthearts@gmail.com directly while we get this fixed.",
+      );
+      return;
+    }
+
     setSubmitting(true);
+    setSubmitError(null);
 
     const subject = `Free Trial Request — ${form.childName || "New Student"} (${form.childAge || "age TBD"})`;
-    const body = [
-      `Parent: ${form.parentFirst} ${form.parentLast}`,
-      `Email: ${form.email}`,
-      `Phone: ${form.phone}`,
-      `Child's Name: ${form.childName}`,
-      `Child's Age Group: ${form.childAge}`,
-      `Dance Styles of Interest: ${form.styles.join(", ") || "Not specified"}`,
-      `Best Time to Reach: ${form.bestTime || "Anytime"}`,
-      `How They Heard About Us: ${form.howHeard || "Not specified"}`,
-      `Message: ${form.message || "(none)"}`,
-    ].join("\n");
 
-    // Opens native email client with pre-filled fields (static-site approach)
-    window.location.href = `mailto:dynamicacademyofthearts@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    const payload = {
+      access_key: accessKey,
+      subject,
+      from_name: `${form.parentFirst} ${form.parentLast}`.trim() || "DATA Website Trial Form",
+      replyto: form.email,
+      to: TRIAL_FORM_RECIPIENT,
+      // Web3Forms emails the destination with a nicely formatted body.
+      // Including each field as a top-level key makes them appear as labeled rows.
+      "Parent First Name": form.parentFirst,
+      "Parent Last Name": form.parentLast,
+      "Parent Email": form.email,
+      "Parent Phone": form.phone || "(not provided)",
+      "Child Name": form.childName,
+      "Child Age Group": form.childAge,
+      "Dance Styles of Interest": form.styles.join(", ") || "Not specified",
+      "Best Time to Reach": form.bestTime || "Anytime",
+      "How They Heard About Us": form.howHeard || "Not specified",
+      "Additional Message": form.message || "(none)",
+    };
 
-    setTimeout(() => {
-      setSubmitting(false);
+    try {
+      const res = await fetch(TRIAL_FORM_ENDPOINT, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const data: { success?: boolean; message?: string } = await res
+        .json()
+        .catch(() => ({}));
+
+      if (!res.ok || !data.success) {
+        throw new Error(
+          data.message ||
+            `Submission failed (HTTP ${res.status}). Please try again or email us directly.`,
+        );
+      }
+
       setSubmitted(true);
-    }, 800);
+    } catch (err) {
+      setSubmitError(
+        err instanceof Error
+          ? err.message
+          : "We couldn't send your message right now. Please try again or email dynamicacademyofthearts@gmail.com directly.",
+      );
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   return (
@@ -468,7 +525,7 @@ export function Contact() {
                       </div>
                       <h3 className="text-xl font-black text-slate-900 mb-3">Message sent!</h3>
                       <p className="text-slate-500 text-sm leading-relaxed mb-8">
-                        Your email client should have opened with your message pre-filled. We typically reply within a few hours — we're excited to meet{" "}
+                        Thanks{form.parentFirst ? `, ${form.parentFirst}` : ""}! Your trial request is on its way to our inbox. We typically reply within a few hours — we're excited to meet{" "}
                         <strong className="text-slate-700">{form.childName || "your dancer"}</strong>!
                       </p>
                       <div className="space-y-3">
@@ -483,7 +540,7 @@ export function Contact() {
                         </a>
                         <button
                           type="button"
-                          onClick={() => { setSubmitted(false); setForm(EMPTY_FORM); }}
+                          onClick={() => { setSubmitted(false); setForm(EMPTY_FORM); setSubmitError(null); }}
                           className="w-full text-sm text-slate-500 hover:text-slate-700 transition-colors py-2 min-h-[44px]"
                         >
                           Send another message
@@ -498,6 +555,21 @@ export function Contact() {
                       onSubmit={handleSubmit}
                       className="px-7 py-7 space-y-5"
                     >
+                      {/* Honeypot — invisible to humans, attractive to bots. */}
+                      <div aria-hidden="true" className="absolute left-[-9999px] top-auto w-px h-px overflow-hidden">
+                        <label>
+                          Do not fill this field
+                          <input
+                            type="text"
+                            tabIndex={-1}
+                            autoComplete="off"
+                            value={honeypot}
+                            onChange={(e) => setHoneypot(e.target.value)}
+                            name="website"
+                          />
+                        </label>
+                      </div>
+
                       {/* Parent Name Row */}
                       <div className="grid grid-cols-2 gap-4">
                         <div>
@@ -645,6 +717,16 @@ export function Contact() {
                           />
                         </div>
                       </div>
+
+                      {submitError && (
+                        <div
+                          role="alert"
+                          className="flex items-start gap-3 bg-red-50 border border-red-200 rounded-xl px-4 py-3"
+                        >
+                          <AlertCircle className="w-5 h-5 text-red-600 shrink-0 mt-0.5" />
+                          <p className="text-sm text-red-800 leading-relaxed">{submitError}</p>
+                        </div>
+                      )}
 
                       {/* Submit */}
                       <button

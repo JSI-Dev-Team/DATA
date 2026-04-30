@@ -2,7 +2,7 @@ import { motion } from "motion/react";
 import { Link } from "react-router";
 import {
   ChevronRight, ChevronDown, Trophy, Heart, Star, MapPin,
-  GraduationCap, Crown, Zap, Sparkles, CheckCircle2, Camera,
+  Crown, Zap, Sparkles, CheckCircle2, Camera,
 } from "lucide-react";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -30,13 +30,13 @@ const EVENTS: TimelineEvent[] = [
     title: "Rothesay Ballet School Opens Its Doors",
     location: "Rothesay, New Brunswick",
     paragraphs: [
-      "Long before D.A.T.A existed, a quiet but powerful tradition took root in Rothesay. Miss Diane Arsenault founded what would become one of Atlantic Canada's most respected classical ballet institutions — built on the Royal Academy of Dance (RAD) syllabus, an internationally recognized standard that would give generations of local dancers a credential they could carry anywhere in the world.",
+      "Long before D.A.T.A existed, a quiet but powerful tradition took root in Rothesay. Miss Sylvia Logan founded what would become one of Atlantic Canada's most respected classical ballet institutions — built on the Royal Academy of Dance (RAD) syllabus, an internationally recognized standard that would give generations of local dancers a credential they could carry anywhere in the world.",
       "Over the next five decades, the school would stage countless productions, develop technically exceptional dancers, and create a holiday tradition so beloved that families across the Kennebecasis Valley planned their entire December around it: The Nutcracker. Year after year, generation after generation, the lights came up and the magic happened.",
     ],
     side: "left",
     accent: "purple",
     Icon: Crown,
-    imagePlaceholder: "Historic founding photo — Miss Diane Arsenault teaching early students (circa 1975)",
+    imagePlaceholder: "Historic founding photo — Miss Sylvia Logan teaching early students (circa 1975)",
   },
   {
     year: "2013",
@@ -100,7 +100,7 @@ const EVENTS: TimelineEvent[] = [
     title: "Together. Stronger Than Ever.",
     location: "Quispamsis & Rothesay, NB",
     paragraphs: [
-      "Effective July 1, 2026, all programs, all faculty, and all students joined under one creative family across two campuses. The Nutcracker — a tradition established through Gala Ballet Productions since 1975 — continues. Miss Diane Arsenault and the full Rothesay faculty continue. RAD certification continues. What opens up for every dancer is extraordinary.",
+      "Effective July 1, 2026, all programs, all faculty, and all students joined under one creative family across two campuses. The Nutcracker — a tradition established through Gala Ballet Productions since 1975 — continues. Miss Sylvia Logan and the full Rothesay faculty continue. RAD certification continues. What opens up for every dancer is extraordinary.",
       "50 years of classical ballet excellence married to over a decade of dynamic contemporary and competitive training. Ballet, jazz, tap, hip-hop, lyrical, acro, contemporary, and musical theatre — all under one name, one roof, one community. This is D.A.T.A as it was always meant to be.",
     ],
     side: "right",
@@ -408,7 +408,7 @@ export function About() {
                 {[
                   "RAD-Certified Classical Ballet",
                   "50-Year Nutcracker Tradition",
-                  "Miss Diane Arsenault & Full Faculty",
+                  "Miss Slyvia Logan & Full Faculty",
                   "Gala Ballet Productions",
                   "Rothesay Campus",
                 ].map((item) => (
@@ -486,57 +486,195 @@ export function About() {
       </section>
 
       {/* ═══════════════════════════════════════════════
-          FACULTY / TRUST
+          FOUNDERS — PEOPLE BEHIND THE MAGIC
       ═══════════════════════════════════════════════ */}
-      <section className="py-24 bg-white">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col lg:flex-row items-center gap-16">
+      <section className="py-28 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 relative overflow-hidden">
+        {/* Atmospheric glows */}
+        <div className="pointer-events-none absolute inset-0">
+          <div className="absolute top-1/3 left-0 w-[600px] h-[600px] bg-purple-600/8 rounded-full blur-3xl -translate-x-1/2" />
+          <div className="absolute bottom-1/3 right-0 w-[600px] h-[600px] bg-orange-500/8 rounded-full blur-3xl translate-x-1/2" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,rgba(139,92,246,0.06),transparent_65%)]" />
+        </div>
 
-            {/* Faculty photo placeholder */}
-            <div className="flex-shrink-0 w-full max-w-xs mx-auto lg:mx-0 relative">
-              <div className="absolute inset-4 bg-purple-200/50 rounded-3xl blur-3xl" />
-              <div className="relative aspect-[3/4] rounded-3xl bg-gradient-to-br from-purple-50 to-violet-100 border-2 border-dashed border-purple-200 flex flex-col items-center justify-center gap-4 overflow-hidden">
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(139,92,246,0.1),transparent_60%)]" />
-                <div className="w-20 h-20 rounded-full bg-purple-100 border-2 border-purple-200 flex items-center justify-center relative z-10">
-                  <GraduationCap className="w-10 h-10 text-purple-400" />
-                </div>
-                <div className="text-center px-8 relative z-10">
-                  <p className="text-purple-700 font-bold text-sm">Miss Diane Arsenault</p>
-                  <p className="text-purple-400 text-xs mt-1">Founder, Rothesay Ballet School</p>
-                  <p className="text-slate-400 text-xs mt-2 italic">Photo coming soon</p>
-                </div>
-              </div>
-            </div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 
-            <div className="flex-1 space-y-6">
-              <span className="text-purple-600 font-bold tracking-wider uppercase text-sm bg-purple-100 inline-block px-4 py-1 rounded-full">
-                The People Behind the Magic
+          {/* Section header */}
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+            className="text-center mb-20"
+          >
+            <span className="text-orange-400 font-bold tracking-widest uppercase text-sm bg-orange-400/10 border border-orange-400/20 inline-block px-5 py-1.5 rounded-full mb-6">
+              The People Behind the Magic
+            </span>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-6 leading-tight">
+              Two Visionaries.<br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-orange-400">
+                One Extraordinary School.
               </span>
-              <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 leading-tight">
-                Your Teachers.<br />Your Community.<br />Unchanged.
-              </h2>
-              <p className="text-lg text-slate-700 leading-relaxed">
-                The most important promise made when these two schools merged was this: your teachers stay. Miss Diane Arsenault — who has dedicated decades to RAD ballet in this community — continues to lead the classical program she built from the ground up in 1975.
-              </p>
-              <p className="text-lg text-slate-700 leading-relaxed">
-                Every Rothesay Ballet faculty member. Every D.A.T.A instructor. The full team that families on both sides of the valley already know and trust — together, under one roof, sharing expertise, and delivering more than either school could ever have provided alone.
-              </p>
-              <div className="pt-2 space-y-3">
-                {[
-                  "All teachers from both schools continue — zero disruption",
-                  "RAD classical ballet certification fully maintained",
-                  "50-year Nutcracker tradition proudly preserved",
-                  "Competitive and recreational programs fully intact",
-                  "Inclusive, welcoming environment for all dancers and families",
-                ].map((item) => (
-                  <div key={item} className="flex items-center gap-3 text-slate-700">
-                    <CheckCircle2 className="w-5 h-5 text-purple-600 shrink-0" />
-                    <span className="text-[15px]">{item}</span>
+            </h2>
+            <p className="text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed">
+              Meet the founders whose passion, dedication, and decades of work built the dance community that families across the Kennebecasis Valley call home.
+            </p>
+          </motion.div>
+
+          {/* Founder cards */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10">
+
+            {/* ── Miss Slyvia Logan ── */}
+            <motion.div
+              initial={{ opacity: 0, y: 48 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.85, ease: "easeOut" }}
+              className="group relative rounded-3xl overflow-hidden bg-white/[0.03] border border-purple-500/15 hover:border-purple-500/35 transition-all duration-500 shadow-2xl shadow-black/40"
+            >
+              {/* Photo */}
+              <div className="relative aspect-[4/5] overflow-hidden">
+                <img
+                  src="/Miss_Slyvia_Logan.png"
+                  alt="Miss Slyvia Logan — Founder, Rothesay Ballet School"
+                  className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                  decoding="async"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 to-transparent" />
+
+                {/* School badge */}
+                <div className="absolute top-5 left-5">
+                  <div className="flex items-center gap-2 bg-purple-600/90 backdrop-blur-sm px-3.5 py-1.5 rounded-full shadow-lg shadow-purple-900/50">
+                    <Crown className="w-3.5 h-3.5 text-white" />
+                    <span className="text-white text-xs font-bold uppercase tracking-wider">Est. 1975</span>
                   </div>
-                ))}
+                </div>
+
+                {/* Name overlay */}
+                <div className="absolute bottom-0 left-0 right-0 px-8 pb-8">
+                  <div className="h-0.5 w-10 bg-purple-400 mb-4 rounded-full" />
+                  <h3 className="text-3xl md:text-4xl font-extrabold text-white mb-1 tracking-tight">Miss Slyvia Logan</h3>
+                  <p className="text-purple-300 font-semibold text-sm tracking-wide">Founder & Ballet Mistress Emerita</p>
+                  <p className="text-slate-500 text-xs mt-1 font-medium">Rothesay Ballet School · Rothesay, NB</p>
+                </div>
               </div>
-            </div>
+
+              {/* Bio */}
+              <div className="px-8 pt-8 pb-10 space-y-7">
+                <div>
+                  <p className="text-purple-400 font-bold text-[10px] uppercase tracking-[0.15em] mb-3">Her Journey</p>
+                  <p className="text-slate-300 text-[15px] leading-relaxed">
+                    Trained in both the Royal Academy and Vaganova methodologies in England, Sylvia Logan emigrated to Canada in 1962 carrying a world-class ballet foundation that the Kennebecasis Valley had never seen. When she founded Rothesay Ballet School in 1975, she planted a seed that would grow into Atlantic Canada's most respected classical ballet institution — built on the RAD syllabus, a credential her students could carry anywhere in the world.
+                  </p>
+                </div>
+
+                <div>
+                  <p className="text-purple-400 font-bold text-[10px] uppercase tracking-[0.15em] mb-3">Legacy & Impact</p>
+                  <p className="text-slate-300 text-[15px] leading-relaxed mb-5">
+                    In 1982 she founded Gala Ballet Company as the school's performing arm, and led her dancers to perform for Their Royal Highnesses Prince Charles and Princess Diana. She became a registered RAD teacher in the very first year registration was mandated in Canada — and after nearly five decades of instruction, her influence lives on through former students who returned to teach at the school she built.
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {["RAD Registered Teacher", "Gala Ballet Founder", "50-Year Nutcracker", "Royal Performance", "Vaganova Trained"].map((tag) => (
+                      <span key={tag} className="text-[11px] bg-purple-500/15 border border-purple-500/25 text-purple-300 px-3 py-1 rounded-full font-semibold">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <blockquote className="border-l-2 border-purple-500 pl-5 italic text-slate-400 text-[14px] leading-relaxed">
+                  "A safe and welcoming environment where students of all ages can experience the joy of dance while striving towards excellence."
+                </blockquote>
+              </div>
+            </motion.div>
+
+            {/* ── Justin Saulnier ── */}
+            <motion.div
+              initial={{ opacity: 0, y: 48 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.85, ease: "easeOut", delay: 0.15 }}
+              className="group relative rounded-3xl overflow-hidden bg-white/[0.03] border border-orange-500/15 hover:border-orange-500/35 transition-all duration-500 shadow-2xl shadow-black/40"
+            >
+              {/* Photo */}
+              <div className="relative aspect-[4/5] overflow-hidden">
+                <img
+                  src="/Justin.png"
+                  alt="Justin Saulnier — Founder, Dynamic Academy of The Arts"
+                  className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                  decoding="async"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-br from-orange-900/15 to-transparent" />
+
+                {/* School badge */}
+                <div className="absolute top-5 left-5">
+                  <div className="flex items-center gap-2 bg-orange-500/90 backdrop-blur-sm px-3.5 py-1.5 rounded-full shadow-lg shadow-orange-900/50">
+                    <Zap className="w-3.5 h-3.5 text-white" />
+                    <span className="text-white text-xs font-bold uppercase tracking-wider">Est. 2013</span>
+                  </div>
+                </div>
+
+                {/* Name overlay */}
+                <div className="absolute bottom-0 left-0 right-0 px-8 pb-8">
+                  <div className="h-0.5 w-10 bg-orange-400 mb-4 rounded-full" />
+                  <h3 className="text-3xl md:text-4xl font-extrabold text-white mb-1 tracking-tight">Justin Saulnier</h3>
+                  <p className="text-orange-300 font-semibold text-sm tracking-wide">Founder & Owner / Director</p>
+                  <p className="text-slate-500 text-xs mt-1 font-medium">Dynamic Academy of The Arts · Quispamsis, NB</p>
+                </div>
+              </div>
+
+              {/* Bio */}
+              <div className="px-8 pt-8 pb-10 space-y-7">
+                <div>
+                  <p className="text-orange-400 font-bold text-[10px] uppercase tracking-[0.15em] mb-3">His Journey</p>
+                  <p className="text-slate-300 text-[15px] leading-relaxed">
+                    Born and raised in Saint John, New Brunswick, Justin discovered his passion for performance at age nine and never looked back. He trained across tap, jazz, hip-hop, contemporary, ballet, and musical theatre before taking his ambitions to Toronto — completing the Commercial Dance Studies Program at George Brown College, training in circus arts with A2D2 Cirque Company, and performing with the Lindsay Ritter Dance Company.
+                  </p>
+                </div>
+
+                <div>
+                  <p className="text-orange-400 font-bold text-[10px] uppercase tracking-[0.15em] mb-3">Building D.A.T.A</p>
+                  <p className="text-slate-300 text-[15px] leading-relaxed mb-5">
+                    In 2013, Justin brought everything back home — his training, his professional network, and his vision — and opened Dynamic Academy of The Arts in Quispamsis. Within a decade he grew it to 300+ dancers and 50+ competition awards, built on a culture where technical excellence and genuine belonging were never in conflict. His choreography has won top overall placements and special awards at competitions across the region.
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {["Certified AcroDance Instructor", "George Brown Grad", "Lindsay Ritter Co.", "Barre Essentials Cert.", "Progressive Ballet Cert."].map((tag) => (
+                      <span key={tag} className="text-[11px] bg-orange-500/15 border border-orange-500/25 text-orange-300 px-3 py-1 rounded-full font-semibold">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <blockquote className="border-l-2 border-orange-500 pl-5 italic text-slate-400 text-[14px] leading-relaxed">
+                  "Classical discipline and contemporary fire are partners, not opposites — and every dancer deserves to experience both."
+                </blockquote>
+              </div>
+            </motion.div>
           </div>
+
+          {/* Closing connector */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.25 }}
+            className="mt-16 text-center max-w-3xl mx-auto"
+          >
+            <div className="h-px bg-gradient-to-r from-transparent via-white/10 to-transparent mb-10" />
+            <p className="text-slate-400 text-lg leading-relaxed mb-10">
+              Together, Miss Logan and Justin bring a combined legacy spanning over five decades of excellence — now united in one school, one community, and one shared belief that dance changes lives.
+            </p>
+            <Link
+              to="/faculty"
+              className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/15 border border-white/15 hover:border-white/30 text-white px-7 py-3.5 rounded-full font-semibold text-sm transition-all duration-300 group"
+            >
+              Meet Our Full Faculty
+              <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </motion.div>
+
         </div>
       </section>
 

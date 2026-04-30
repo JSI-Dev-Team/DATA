@@ -109,7 +109,7 @@ export const faqSections: FaqSection[] = [
       {
         id: "rad",
         question: "What is RAD certification and why does it matter?",
-        answerHtml: `<p>RAD stands for the Royal Academy of Dance — it's one of the most recognized international bodies for ballet education. RAD-certified training means your child is learning ballet through a standardized, graded syllabus that emphasizes proper technique, musicality, and safe physical development. Students in RAD programs can take official graded exams, which give them a recognized credential that travels with them if they ever move, switch studios, or pursue dance at a higher level. DATA carries RAD certification forward from the Rothesay Ballet tradition, led in part by Miss Diane Arsenault, who has taught RAD ballet in this community for decades.</p>`,
+        answerHtml: `<p>RAD stands for the Royal Academy of Dance — it's one of the most recognized international bodies for ballet education. RAD-certified training means your child is learning ballet through a standardized, graded syllabus that emphasizes proper technique, musicality, and safe physical development. Students in RAD programs can take official graded exams, which give them a recognized credential that travels with them if they ever move, switch studios, or pursue dance at a higher level. DATA carries RAD certification forward from the Rothesay Ballet tradition, led in part by Miss Sylvia Logan, who founded Rothesay Ballet School in 1975 and has taught RAD ballet in this community for nearly five decades.</p>`,
       },
     ],
   },
@@ -137,7 +137,7 @@ export const faqSections: FaqSection[] = [
         id: "merger-family",
         question: "What does the Rothesay Ballet + DATA merger mean for my family?",
         answerHtml: `<p><strong>The tradition of Rothesay Ballet. The energy of DATA. One school, one community, one stage.</strong></p>
-<p>For Rothesay Ballet families, this means your child's training, their teachers (including Miss Diane Arsenault), and the classical foundation you chose are all continuing — just with a broader program, more styles, and a bigger community around them. For DATA families, it means access to one of the region's most respected classical ballet legacies, including RAD certification and the Nutcracker tradition. Nothing important is being lost. Both communities are being brought together in a school that is stronger for it. If you have specific questions about how the transition affects your child's placement, class, or fees, please call us at <a href="tel:+15068471164">(506) 847-1164</a> — we're happy to talk it through.</p>`,
+<p>For Rothesay Ballet families, this means your child's training, their teachers (including Miss Sylvia Logan and the full Rothesay Ballet faculty), and the classical foundation you chose are all continuing — just with a broader program, more styles, and a bigger community around them. For DATA families, it means access to one of the region's most respected classical ballet legacies, including RAD certification and the Nutcracker tradition. Nothing important is being lost. Both communities are being brought together in a school that is stronger for it. If you have specific questions about how the transition affects your child's placement, class, or fees, please call us at <a href="tel:+15068471164">(506) 847-1164</a> — we're happy to talk it through.</p>`,
       },
       {
         id: "french",
