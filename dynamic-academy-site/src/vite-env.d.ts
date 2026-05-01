@@ -1,8 +1,9 @@
 /// <reference types="vite/client" />
 
-interface ImportMetaEnv {
-  readonly VITE_WEB3FORMS_ACCESS_KEY?: string;
-}
+// Reserved for future VITE_-prefixed client env vars.
+// SMTP credentials are server-side only and live in api/send-contact.js
+// via process.env (see .env.example).
+interface ImportMetaEnv {}
 
 interface ImportMeta {
   readonly env: ImportMetaEnv;

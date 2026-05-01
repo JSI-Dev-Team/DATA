@@ -28,8 +28,8 @@ const JACKRABBIT_ENROLL = "https://app.jackrabbitclass.com/jr3.0/Enroll/Enrollme
 const APP_STORE_URL = "https://apps.apple.com/us/app/dynamic-academy-of-the-arts/id6746337745";
 const GOOGLE_PLAY_URL = "https://play.google.com/store/apps/details?id=com.dynamicacademyofthearts.mi";
 
-const TRIAL_FORM_ENDPOINT = "https://api.web3forms.com/submit";
-const TRIAL_FORM_RECIPIENT = "dynamicacademyofthearts@gmail.com";
+const JACKRABBIT_FN = "/api/jackrabbit-register";
+const CONTACT_EMAIL_FN = "/api/send-contact";
 
 const SOCIAL_LINKS = [
   { label: "Instagram", href: "https://www.instagram.com/dynamicacademyofthearts", Icon: Instagram, color: "hover:bg-pink-600" },
@@ -140,8 +140,6 @@ export function Contact() {
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
-  const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
-
   const loc = LOCATIONS.find((l) => l.id === activeLocation)!;
 
   function toggleStyle(style: string) {
@@ -160,64 +158,52 @@ export function Contact() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
-    // Bot caught by honeypot — silently "succeed" so the bot doesn't retry,
-    // but never call the email API.
+    // Bot caught by honeypot — silently "succeed" so bots don't retry.
     if (honeypot.trim().length > 0) {
       setSubmitted(true);
-      return;
-    }
-
-    if (!accessKey) {
-      setSubmitError(
-        "The booking form is not yet configured. Please email dynamicacademyofthearts@gmail.com directly while we get this fixed.",
-      );
       return;
     }
 
     setSubmitting(true);
     setSubmitError(null);
 
-    const subject = `Free Trial Request — ${form.childName || "New Student"} (${form.childAge || "age TBD"})`;
-
     const payload = {
-      access_key: accessKey,
-      subject,
-      from_name: `${form.parentFirst} ${form.parentLast}`.trim() || "DATA Website Trial Form",
-      replyto: form.email,
-      to: TRIAL_FORM_RECIPIENT,
-      // Web3Forms emails the destination with a nicely formatted body.
-      // Including each field as a top-level key makes them appear as labeled rows.
-      "Parent First Name": form.parentFirst,
-      "Parent Last Name": form.parentLast,
-      "Parent Email": form.email,
-      "Parent Phone": form.phone || "(not provided)",
-      "Child Name": form.childName,
-      "Child Age Group": form.childAge,
-      "Dance Styles of Interest": form.styles.join(", ") || "Not specified",
-      "Best Time to Reach": form.bestTime || "Anytime",
-      "How They Heard About Us": form.howHeard || "Not specified",
-      "Additional Message": form.message || "(none)",
+      parentFirst : form.parentFirst,
+      parentLast  : form.parentLast,
+      email       : form.email,
+      phone       : form.phone,
+      childName   : form.childName,
+      childAge    : form.childAge,
+      styles      : form.styles,
+      bestTime    : form.bestTime,
+      howHeard    : form.howHeard,
+      message     : form.message,
+      website     : honeypot,
     };
 
-    try {
-      const res = await fetch(TRIAL_FORM_ENDPOINT, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify(payload),
+    const postJson = (url: string) =>
+      fetch(url, {
+        method : "POST",
+        headers: { "Content-Type": "application/json" },
+        body   : JSON.stringify(payload),
+      }).then(async (r) => {
+        const data = (await r.json().catch(() => ({}))) as { error?: string };
+        if (!r.ok || data.error) throw new Error(data.error ?? `Request failed (${r.status})`);
+        return data;
       });
 
-      const data: { success?: boolean; message?: string } = await res
-        .json()
-        .catch(() => ({}));
+    // Primary  : register the family in JackRabbit
+    // Secondary: email the studio via SMTP (Nodemailer in /api/send-contact)
+    // Both run in parallel; success of either is enough to acknowledge the user.
+    try {
+      const [jrResult, mailResult] = await Promise.allSettled([
+        postJson(JACKRABBIT_FN),
+        postJson(CONTACT_EMAIL_FN),
+      ]);
 
-      if (!res.ok || !data.success) {
-        throw new Error(
-          data.message ||
-            `Submission failed (HTTP ${res.status}). Please try again or email us directly.`,
-        );
+      if (jrResult.status === "rejected" && mailResult.status === "rejected") {
+        const err = jrResult.reason ?? mailResult.reason;
+        throw err instanceof Error ? err : new Error("Submission failed on both channels");
       }
 
       setSubmitted(true);
